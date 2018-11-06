@@ -1,0 +1,131 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+    <style type="text/css">
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active  {
+                color: #dc3545 !important;
+
+
+     }
+     .nav-item {
+     	color:black;
+     	text-align:center;
+     }
+
+     .card1
+    {
+      position: relative;
+      display: -ms-flexbox;
+display: flex;
+-ms-flex-direction: column;
+flex-direction: column;
+min-width: 0;
+word-wrap: break-word;
+background-color: #fff;
+background-clip: border-box;
+      box-shadow: 0 5px 5px #b2b2b2;
+    }
+    
+    </style>
+{% endblock %}
+
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+	<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'MoUs' %}" class="text-dark font-weight-bold"  style="text-decoration:none">MoUs </a></li>
+	<li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container rounded" style="margin-top: 20px;padding-top: 15px;background-color: #FFFFFF;">
+		 	<p style="color:#dc3545;text-align:center;padding-bottom: 25px; font-size:50px">Memorandum of Understandings</p>
+            <!--<img src="{% static 'main_website/images/shake.jpg'%}"  alt="John" style="width:100%">-->
+
+            <nav>
+                <div class="nav nav-tabs " id="nav-tab" role="tablist" style="padding-top: 0px;text-align:center;">
+                    <a class="col-lg-1"></a>
+                    <a style="color:#000000;"class="nav-item nav-link active col-lg-5" id="nav-mou_foreign-tab" data-toggle="tab" href="#nav-mou_foreign" role="tab" aria-controls="nav-mou_foreign" aria-selected="true" >Mou With Foreign Institutes</a>
+                    <a style="color:#000000;"class="nav-item nav-link col-lg-5" id="nav-mou_industry-tab" data-toggle="tab" href="#nav-mou_industry" role="tab" aria-controls="nav-mou_industry" aria-selected="false">Mou with Industries</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent" style="margin-top:0px;padding-bottom: 125px;">
+<div class="tab-pane fade show active" id="nav-mou_foreign" role="tabpanel" aria-labelledby="nav-mou_foreign-tab" >
+            		
+                <div class="card1">
+                  <p style="color:#dc3545;text-align:center;padding-bottom: 10px;padding-top: 30px; font-size:35px">Academic Tieups of NITK </p>
+               <div style="padding-bottom: 5px">
+            		<ul style="list-style-type: inherit; font-size:18px;color:#28a745">
+
+<li>University of California Berkeley Mechanical Engineering (Combustion Group) Berkeley, California</li><br>
+<li>Centre for Marine Technology and Ocean Engineering (CENTEC), Instituto Superior Tecnico, Universidade de Lisboa, Portugal</li><br>
+<li>USC Viterbi School of Engineering</li><br>
+<li>Department of Electrical and Computer Engineering Northeastern University Boston, USA</li><br>
+<li>D'Amore-McKim School of Business Northeastern University Boston, USA</li><br>
+<li>Michigan State University, U. S. A.</li><br>
+<li>hepia-University of Applied Sciences Western Switzerland technology, architecture and landscape</li><br>
+<li>University of Seville (UoS), Spain</li><br>
+<li>National Technical University of Ukraine "KYIV POLYTECHNIC INSTITUTE"</li><br>
+<li>MITACS INC, of Canada</li><br>
+<li>ECAM Lyon (Ecole Catholique d 'Arts et Metiers) School of Engineering, France</li><br>
+<li>Universitat Rovira I Virgili, Tarragona, Spain</li><br>
+<li>The School of Business and Engineering University of applied Sciences Western,Switzerland, Vaud (Heig - VD)</li><br>
+<li>Kagoshima University, Japan</li><br>
+<li>Faculty of Engineering and Graduate School of Science and Technology, Kumamoto University, Japan</li><br>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="tab-pane fade" id="nav-mou_industry" role="tabpanel" aria-labelledby="nav-mou_industry-tab">
+
+            	<div class="card1" >
+                <p style="color:#dc3545;text-align: center; padding-bottom: 10px;padding-top: 30px; font-size:35px">Industry relations of NITK</p>
+               <div style="padding-bottom: 5px">
+              <ul style="list-style-type: inherit;font-size:18px;color:#28a745">
+            		<li>Moog India Technology Center Pvt. Ltd.</li><br>
+				    <li>M/s. Insmart Systems, Hyderabad</li><br>
+				    <li>Larsen & Toubro Limited (L&T Construction)</li><br>
+				    <li>ProSIM R& D Pvt. Ltd.</li><br>
+				    <li>AB Volvo Group Sweden</li><br>
+				    <li>Robert Bosch Engineering and Business Solutions Limited (RBEI), Bangalore</li><br>
+				    <li>Mercedes-Benz Research and Development India Private Limited (MBRDI), Bangalore</li><br>
+				    <li>DELL R & D Bangalore</li><br>
+				    <li>Advance Micro Devices, Inc. (AMD) Sunnyvale, California, USA</li><br>
+				    <li>Oil and Natural Gas Corporation. Limited (ONGC), Dehra Dun</li><br>
+				    <li>ITI Limited, Bangalore</li><br>
+				    <li>Mangalore Refinery and Petrochemicals Limited (MRPL) - MOC</li><br>
+				    <li>National Instruments</li><br>
+				    <li>Agreement is made between AVL and NITK for using software AVL FIRE and AVL BOOST</li><br>
+				 </ul>
+        </div>
+         </div>
+		</div>
+  </div>
+</div>
+{% endblock %}

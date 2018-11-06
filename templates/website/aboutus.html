@@ -1,0 +1,79 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+    <style type="text/css">
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+    i
+    {
+      font-size: 22px;
+      margin-left:10px;
+    }
+    .card
+    {
+      box-shadow: 0 10px 10px #b2b2b2;
+    }
+    </style>
+{% endblock %}
+
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>      
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'faq' %}" class="text-dark font-weight-bold"  style="text-decoration:none">About Us </a></li>
+  <li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="container rounded" style="margin-top: 40px;padding-top: 15px;background-color: #f9f9f9;">
+<div class="text-danger" style="text-align:center;font-size:35px">Developers Team</div>
+<br>  <div class="card">
+      <div style="padding-bottom: 10px;padding-top: 55px">
+      <ul style="list-style-type:inherit;font-size:18px;color:#ffffff">
+                          
+                          <div class="row"> 
+                            {% for a in queryset %}
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-3">
+                              <div class="card" style="margin-bottom: 40px; width:175px">
+                                  <img class="card-img-top" src="{{ a.image.url }}" alt="Card image" style="width:175px;height: 175px;">
+                                  <p class="text-success" style=" text-decoration: none; font-size: 20px;text-align:center"> {{ a.name }} </p>
+                                  <p class="text-muted" style="font-size:14px;text-align:center">{{ a.department }}<br>{{a.mobno}}</p>
+                          </div>
+                            
+                          </div>
+                            {% endfor %}  
+                          </div> 
+
+       
+      </ul>
+      </div>
+       
+</div>
+</div>
+
+{%  endblock %}

@@ -1,0 +1,70 @@
+.nounderline
+{text-decoration: none;}
+.newsholder { 
+  overflow:scroll; 
+  padding:10px;
+  padding-top: 2px;
+}
+.newsholder ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.newsholder ul li {
+  padding:10px 0px;
+}
+.newsholder ul li a {
+  text-decoration:none;
+}
+
+.modal-login
+{
+	width: 350px;
+}
+.modal-login .modal-content
+{
+	padding: 20px;
+}
+.modal-login .modal-header
+{
+	position: relative;
+}
+.modal-login  .form-group
+{
+	position: relative;
+}
+.modal-login i
+{
+	position: absolute;
+	left: 13px;
+	top: 11px;
+	font-size: 18px;
+}
+.modal-login .form-control
+{
+	padding-left: 40px;
+}
+.modal-login .form-control:focus
+{
+	border-color: #00ce81;
+}
+.modal-login .form-control, .modal-login .btn
+{
+	min-height: 40px;
+	border-radius: 3px; 
+}
+.modal-login .close
+{
+    position: absolute;
+	top: -5px;
+	right: -5px;
+}
+.modal-login .btn {
+	background: #00ce81;
+	border: none;
+	line-height: normal;
+}
+.modal-login .btn:hover, .modal-login .btn:focus
+{
+	background: #00bf78;
+}

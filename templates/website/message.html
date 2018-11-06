@@ -1,0 +1,68 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+    <style type="text/css">
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active  {
+                color: #495057 !important;
+
+
+     }
+     .nav-item {
+     	color:black;
+     	text-align:center;
+     }
+
+     .card
+    {
+      box-shadow: 0 5px 5px #b2b2b2;
+    }
+    
+    </style>
+{% endblock %}
+
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+	<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'MoUs' %}" class="text-dark font-weight-bold"  style="text-decoration:none">Council's Message </a></li>
+	<li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+{% block content %}
+<div class="container rounded" style="background-color:#FFFFFF">
+  <div class="text-danger" style="text-align: center;font-size: 40px">Message from the Council</div>
+  <div style="padding-bottom:20px;padding-top: 10px">
+  
+  <p class="text-success" style="font-size: 20px;margin: 20px 70px 20px 70px;text-align: justify;">
+    {% for mess in message_set %}
+    {{mess.message}}
+    {% endfor %}
+  </p>
+
+</div>
+</div>
+{% endblock %}

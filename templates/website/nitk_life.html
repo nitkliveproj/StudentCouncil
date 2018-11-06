@@ -1,0 +1,1384 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+    <style type="text/css">
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+
+.nitkclubs {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+
+/* The actual popup */
+.nitkclubs .nitkclubtext {
+    visibility: hidden;
+    width:400px;
+    background-color:#EFF8FB;
+    color: #555;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left:15%;
+    margin-left: -100px;
+}
+
+/* Popup arrow */
+.nitkclubs .nitkclubtext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.nitkclubs .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}}
+
+      .nounderline
+			{
+			    text-decoration: none;
+			}
+			.fa {
+                padding: 20px;
+                width: 35px;
+                height: 35px;
+
+
+                text-align: center;
+                text-decoration: none;
+                border-radius: 50%;
+            }
+            .na-facebook {
+                padding-left: 12px;
+                padding-top: 10px;
+                background: #3B5998;
+                color: white;
+                font-size: 17px;
+            }
+            .fa-instagram {
+	            padding-left: 12px;
+                padding-top: 10px;
+                
+                color: white;
+                font-size: 17px;
+            }
+            .head {
+               padding:2.50%;
+            }
+
+            .nav-item{
+                text-align:center;
+
+                color:white;
+
+            }
+            .nav-item-nitklife{
+                text-align:center;
+                background-color:#e5e5ff;
+                color:#000000;
+                margin-left:40px;
+            }
+            .nav-it{
+                text-align:center;
+                background-color:#e5e5ff;
+                color:white;
+             margin-left:170px;
+             margin-right:190px;
+
+            }
+            .nav-tabs .nav-item.show .nav-link  .nav-item-nitklife, .nav-tabs .nav-link.active  {
+                background-color:#0B415C;
+                color: #FFFFFF ;
+
+            }
+
+           .hr1 {
+           margin-bottom: 0.5em;
+           margin-left: auto;
+           margin-right: auto;
+           border-style: inset;
+           border-width: 2px;
+                }
+            .nkfooter
+            {
+              position:fixed;
+              left:0px;
+              bottom:0px;
+              height:155px;
+              width:100%;
+            }
+ table {
+     border-collapse: collapse;
+     width:100%;
+}
+
+ th, td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+	background-color:#f5f5f5;
+}
+
+.nks{
+		width: 590px;
+		margin: 30px auto;
+	}
+	.nks table{
+		border-radius: 3px;
+    	margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+    }
+    html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+@media screen and (max-width: 300px) {
+  .column {
+    width:250px;
+    display: block;
+  }
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align:center;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 10px;
+  color: black;
+  background-color:#5F9EA0;
+  text-align: center;
+  cursor: pointer;
+  width:300px;
+}
+.a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+.button:hover, .a:hover {
+  opacity: 0.7;
+}
+
+
+    </style>
+{% endblock %}
+
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+	<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'nitk_life' %}" class="text-dark font-weight-bold"  style="text-decoration:none">NITK Life</a></li>
+	<li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container rounded" style="margin-top: 10px;padding-top:15px;background-color:#FFFFFF;">
+            <nav >
+                <div class="nav nav-tabs "id="nav-tab" role="tablist">
+                    <a class="col-lg-1"></a><a class="nav-item-nitklife nav-link col-lg-2" id="nav-inside_nitk-tab" data-toggle="tab" href="#nav-inside_nitk" role="tab" aria-controls="nav-inside_nitk" aria-selected="true" >INSIDE NITK</a>
+                    <a class="nav-item-nitklife nav-link col-lg-2" id="nav-academics-tab" data-toggle="tab" href="#nav-academics" role="tab" aria-controls="nav-academics" aria-selected="false">ACADEMICS</a>
+                    <a class="nav-item-nitklife nav-link col-lg-2" id="nav-sports-tab" data-toggle="tab" href="#nav-sports" role="tab" aria-controls="nav-sports" aria-selected="false">SPORTS AND GAMES</a>
+                    <a class="nav-item-nitklife nav-link active col-lg-2" id="nav-nitk_clubs-tab" data-toggle="tab" href="#nav-nitk_clubs" role="tab" aria-controls="nav-nitk_clubs" aria-selected="false">NITK CLUBS</a>
+                </div>
+            </nav>
+<div class="tab-content" id="nav-tabContent" style="margin-top:50px;padding-bottom:125px;">
+<!--  -------------------------- INSIDE NITK------------------------- -->
+
+<hr class="hr1" style="color:#A52A2A;">
+<div class="tab-pane fade" id="nav-inside_nitk" role="tabpanel" aria-labelledby="nav-inside_nitk-tab" >
+       <div id="splash-wrap">
+            <div class="main-wrap">
+                <div id="content-section">
+                    <div id='wsite-content' class='wsite-elements wsite-not-footer'>
+
+                      <h3 class="wsite-content-title" style="text-align:center;">&nbsp;INSIDE NITK-FACILITIES</h3>
+
+ <hr class="hr1" style="color:#A52A2A;">
+                        <br>
+
+                        <div class="row"">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <b><h4 align="center"> Silver Jubilee Auditorium </h4></b>
+                              <br><br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/sja.jpg' %}" alt="sja" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                                  <p>
+
+                                      SJA is a huge auditorium that regularly hosts major events of NITK. Formed to commemorate NITK's Silver Jubilee, it is the projection of NITK’s pride as one of the top engineering institutions in the country.
+                                      <br>
+                                      The SJA has a capacity of around 1000. It is fully air conditioned and also has a balcony housing. SJA is decked up for all major occasions and looks rather stunning during the nights. As a fresher one should not miss the musical nights. Those are truly performances worth cherishing (and the AC worth sitting for!). Films are regularly screened by the Films’ Club and block timings are extended during the screening of these films!
+                                      <br>
+                                      All the fests start with their inaugural functions at the SJA, be it ENGINEER, INCIDENT or Crrescendo for that matter. The crowd particularly goes in a frenzy whenever there is an amazing performance and it is a treat to watch especially from the balcony.
+                                      <br>
+                                      The building is centrally located in the campus just adjacent to  Ocean Pearl and opposite to Central Computer Centre(CCC).
+                                      <br>
+
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+ <hr class="hr1" style="color:#A52A2A;">
+ <br>
+
+                        <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center"> Students' Activity Center (SAC)</h4>
+                              <br>
+                              
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/sac.jpg' %}" alt="sac" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                                  <p>
+
+                                      Students Activity Centre is the arena  right beside the HCC and in front of the basketball court. It's quite a serene and calm place on a normal day. It is often used as a popular hangout place by most people during the evenings.
+                                      <br>
+                                      Come the fests and this place will be busy buzzing with students as all the major performances and events take place here. Every night during INCI and two of the nights during ENGINEER this place is filled with people waiting for the band events or the DJ Show.
+                                      <br>
+                                      And that’s not it, Films and plays will be regularly screened and sometimes cricket matches are also shown. During the Indian cricket team’s matches the entire college comes over here to cheer and it provides the thrill that one experiences in a stadium. A great atmosphere makes this place awesome during the movie screenings.
+                                      <br>
+
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+<br>
+ <hr class="hr1" style="color:#A52A2A;">
+ <br>
+
+                        <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center"> Library </h4>
+                             <br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/library.jpg' %}" alt="library" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                                  <p>
+
+                                      The NITK Library is housed in a spacious two-storied independent building adjoining the Main building of the Institute on the Eastern side of the campus. The library is segregated into two wings.Periodicals, journals and bound volumes are accessible in the Western wing, while books are housed in the Eastern wing.
+                                      <br>
+                                      The Reading halls provides the peaceful and friendly atmosphere for studying peacefully.There is also an AC room to find respite from the sweltering Surathkal heat. The library also has a Xerox and printing facility on the 1st floor along with a facility to read newspapers in various languages. The second floor has a Reading Room which can be used by students to study in groups or for discussing a particular project/ assignment.
+                                      <br>
+                                      A computer terminal is provided which can be used to gain information regarding availability and particulars of any book. A bar-coded system of issue and return of books is currently in use. Laptops are allowed inside the library and e-books or research papers can be downloaded from the library Wi-Fi.
+                                      <br><br>
+
+                                  </p>
+                                </div>
+                              </div>
+
+
+ <br>
+ <div class="nks">
+ <table>
+   <h4 align="center"> Timings </h4>
+  <br>
+  <tr>
+   <td>Weekdays</td>
+  <td>8:30 am to 8 pm</td>
+  </tr>
+  <tr>
+     <td>Saturday</td>
+     <td>9 am to 8 pm</td>
+  </tr>
+  <tr>
+    <td>Sundays and Holidays</td>
+    <td>9 am to 4 pm</td>
+  </tr>
+  <tr>
+     <td>Exam time</td>
+     <td>8:30 am to 0:00 am</td>
+  </tr>
+  <tr>
+  <td>Vacations</td>
+  <td>9 am to 5 pm</td>
+  </tr>
+</table>
+</div>
+   </div>
+  </div>
+ </div>
+<br>
+ <hr class="hr1" style="color:#A52A2A;">
+ <br>
+
+                        <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center"> Health Care Centre</h4>
+                              <br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/hcc.jpg' %}" alt="hcc" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                                  <p>
+                                    The Health Care Centre also known as HCC is a unique facility. Free doctors + medicine! Many private colleges do not have such a facility. It is situated in the centre of the campus opposite the main grounds.
+                                    <br>
+                                    There are doctors available at the given timings and all you need to show is your ID Card
+                                    to get free treatment as well as free medicines from the in-house pharmacy. Specialist
+                                    doctors visit the campus once a week and you can book an appointment with them at the campus
+                                    itself. NITK has recently inducted a 24-hour ambulance for emergencies.
+                                    <br>
+                                    You will also be covered under a medical insurance by HCC, NITK. It's available throughout Karnataka in almost all major hospitals :P.You can claim lakhs of money in case you undergo some medical treatment in and around Mangalore. You can even get rebate in consultancy fees of top-notch doctors in almost all the Hospitals in Mangalore.
+                                    <br>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+                        <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center"> Main Building</h4>
+                              <br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/mb1.jpg' %}" alt="mb1" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                                  <p> <span class="black-text">
+
+                                    This is the mother of all buildings at NITK. Here lies the Administration office and all the
+                                    officials’ office. From the Dean to the Director, everyone’s office can be found here. Visit
+                                    this place for all official purposes. ( A word of warning, don’t enter this building in shorts
+                                    or you are done for :P)
+                                    <br>
+                                    There are two seminar halls in this building namely - Main Seminar Hall (MSH) and the ISTE
+                                    seminar hall. Regular seminars and (boring :P) quizzes take place here.
+                                    <br>
+                                    There are 5 classrooms on the ground floor which are often used by students for self-study or
+                                    for clubs to hold their meetings and to conduct events for the first-years.
+                                    <br>
+                                    And then lastly there is a hotel called Samudra Darshan on the top floor where you can have
+                                    regular breakfast/lunch. The panoramic view from there is one not to be missed.
+                                    <br>
+                                  </span></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+ <br>
+                        <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center"> Central Computer Centre</h4>
+                              <br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/CCC.jpg' %}" alt="wk1" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                                  <p>
+                                   CCC (pronounced trip-see) occupies the ground and first floor of the building opposite to the
+                                   Silver Jubilee Auditorium. CCC was established in 1995 as a service providing/supporting facility
+                                   that augments to the computing facilities in the teaching departments.
+                                   <br>
+                                    There is a computer lab on the ground floor which is accessed only by first years for their
+                                    Computer Programming classes. However on the first floor there is another lab which is used by the
+                                    students and is open to all for their personal use. CCC is also responsible for Internet connectivity throughout campus and all complaints for internet connections not working in your rooms are addressed here.
+                                   <br>
+                                   For more details check <a href="http://ccc2.nitk.ac.in/">here</a>.
+                                   <br><br>
+                                  </p>
+                                </div>
+                              </div>
+                          <div class="nks">
+                              <table>
+                                       <h4 align="center">Timings </h4>
+                                          <br>
+                                          <tr>
+                                            <td>Monday - Saturday</td>
+                                            <td>8:30 am to 8 pm</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Sunday</td>
+                                            <td>Closed</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Exam time</td>
+                                            <td>8.30 am to 00:00 am</td>
+                                          </tr>
+                                      </table>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+
+<br>
+ <hr class="hr1" style="color:#A52A2A;">
+ <br>
+
+
+                        <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center"> NITK Hostel</h4>
+                              <br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/hostel.png' %}" alt="hcc" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                                  <p>The Institute is a completely residential campus with hostel facility for over 5000 students including separate blocks for girls. Hostel blocks have reading rooms and separate dining halls which serve different cuisine. All rooms in hostels have been provided with high speed broadband and Wi-Fi internet connectivity. The accommodation is single-seater and 2/3 seater shared type. A separate hostel for the Post Graduate students is available. To suit the tastes of the students from different regions, independent messes of various types are run in different hostels. Moreover two night canteens are running in boys as well as in girls’ premises to cater the late night hunger. Moreover five well established cafeterias are there in different corner of the campus to caters the hunger with delicious and hygienic food items.
+                                    <br>
+                                   </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+                        <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center"> NITK Guest House</h4>
+                              <br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'main_website/images/gest.jpg' %}" alt="hcc" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                                  <p> <br><br>The institute has 3 Guest Houses and one International Hostel with state of the art infrastructure which provides accommodation to Institute guests, staff and guardians of the students.
+                                  <br></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+                        <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center">Campus Map</h4>
+                              <br>
+                              <div class= "row">
+                                <div class="col s12">
+                                  <img src="{% static 'site/img/campusmap.png' %}" alt="campusmap" style="display:block;height:auto;width:100%">
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col s12">
+                                  <p> <b>
+                                      SAC - Students' Activity Center<br>
+                                      SJA - Silver Jubilee Auditorium<br>
+                                      KREC - Karnataka Regional Engineering College (Version 1.0 of NITK)<br>
+                                      ATB - Additional Teaching Block<br>
+                                      CCC - Central Computing Center<br>
+
+                                  </b></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+</div>
+
+<!-- -----------------------------------NITK SPORTS-------------------------  -->
+
+<div class="tab-pane fade" id="nav-sports" role="tabpanel" aria-labelledby="nav-sports-tab">
+  <h3 class="wsite-content-title" style="text-align:center;">&nbsp;SPORTS IN NITK</h3>
+<hr class="hr1" style="color:#A52A2A;">
+   <br>
+                             <div style="padding-left:10px;margin:15px;color:black">
+                              <p>
+                                <b> Did you think that NITK is just a temple of nerds and extracurricular activities like sports and games are not given any kind of attention then think again.
+                                NITK offers state of the art sports facilities.  The college sports an Olympic size swimming pool, three tennis courts, two basketball courts, two volleyball courts, full size football and cricket grounds, one hockey field, one handball court, three badminton courts, five T.T tables etc. Other games like Chess and Carrom are also encouraged.<br><br></b></p>
+                            </div>
+                        <div class="row"">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <b><h4 align="center"> Swimming Pool </h4></b>
+                              <br><br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+
+                                  <img src="{% static 'site/img/swim.jpg' %}" alt="sja" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                                  <p>All students are welcome to register and utilize the facility. But being in a proper swimming attire is a must i.e. swimming costume/trunks + cap. Instructor and life guards are always present. But the registration process is a bit of a pain; the student has to submit a Xerox copy of his/her admission letter in order to get the registration form. <br>
+
+                                Then he/she has to get an approval from a doctor in Health Care Centre saying that he/she is fit for swimming. Swimming wear can be brought by the student or it can also be bought in the store inside the swimming pool. Advice: Maximize its use in summer.<br></p>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+ <hr class="hr1" style="color:#A52A2A;">
+ <br>
+ <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center">Football</h4>
+                              <br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/foot.jpg' %}" alt="hcc" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                                  <p>Football is very popular in NITK. Every evening one can find at least 6-8 groups playing football in the ground apart from the college team. Footballs and practice cones can be issued from the sports complex adjacent to the ground by giving your college ID (or Library card). Again Inter collegiate and Inter year tournaments are held. Also there is a special “only freshers” tournament held in the beginning of 1st semester between the twelve 1st year classes. Five a side Beach football is organized during Incident and five a side ‘flood lit’ football tournament is held during Phoenix.
+                                  <br>
+                                 Inter NIT tournament was held last year and NITK won the Gold medal. Want to get into the college team? Just practice with the
+                                team every evening. Selections will be held in the 1st semester.<br>
+
+                                </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+
+        <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center">Basketball</h4>
+                              <br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/basket.jpg' %}" alt="hcc" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                            <p>Basketball: There are two basketball courts. Both of them are in a great condition. One of them is reserved for the college team and should be vacated whenever they come for practice. The other one
+                                can be made use of at any time. There are two major competitions that take place on these courts, one is the inter collegiate basketball tournament known as the “Slam dunk” which takes place during
+                                Incident, and the other one is the inter year basketball tournament which takes place during crescendo. <br>
+
+                                Inter class freshers tournament is held in the 1st and want to get into the college team just join the team in practice every evening. Selections will be held.<br></p>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+
+<div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center">Cricket</h4>
+                              <br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/cricket.png' %}" alt="hcc" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                            <p>Cricket too is very popular in NITK. Cricket bats, balls, stumps etc. can be issued from the complex by giving your college ID. Inter Year and Inter branch tournaments are held. Last year the inter class “mixed” cricket tournament was organized (5 boys + 2 girls required in one team :P). Selections for getting into the College cricket team will be held in either the 1st or 2nd semester.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+                  <div class="row">
+                          <div class="col s12">
+                            <div class="card-panel grey lighten-5">
+                              <h4 align="center">Badminton/Table Tennis</h4>
+                              <br>
+                              <div class= "row">
+                                <div class="col s12 l6">
+                                  <img src="{% static 'site/img/bad.jpg' %}" alt="hcc" style="display:block;height:auto;width:100%">
+                                </div>
+                                <div class="col s12 l6">
+                            <p>The courts and tables are located inside the sports complex. The complex is open from 6 in the morning to 8 in the evening. One can issue T.T balls and Shuttles from the complex.<br>
+
+                                But one has to bring their own T.T bats and Badminton racquets too play. Inter class badminton and T.T tournament is held at the beginning of 1st semester for the freshers by the Recreational committee.<br></p>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+</div>
+<!-- --------------------------NITK clubs---------------------------------- -->
+<div class="tab-pane fade show active" id="nav-nitk_clubs" role="tabpanel" aria-labelledby="nav-nitk_clubs-tab">
+  <h3 class="wsite-content-title" style="text-align:center;">&nbsp;CLUBS IN NITK</h3>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+
+<div class="container">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist" style="padding-left: 20">
+    <li class="nav-it ">
+      <a class="nav-link active" data-toggle="tab" href="#technical_clubs">Technical Clubs</a>
+    </li>
+    <li class="nav-it ">
+         <a class="nav-link" data-toggle="tab" href="#non-technical">Non-Technical Clubs</a>
+    </li>
+   </ul>
+<br>
+  <!-- Tab panes -->
+  <div class="tab-content">
+  <div id="technical_clubs" class="container tab-pane active">
+  <br>
+ <div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/ieee.jpg' %}" alt="ieee" style="width:100%">
+      <div class="container">
+        <h4>Anand Thamban</h4>
+        <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+   
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/IEEENITK/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+        <p><button class="button" onmouseover="myieee()" onmouseout="myieee()">IEEE-NITK</button></p>
+<span class="nitkclubtext" id="ieee"><b>IEEE is the world's largest professional association advancing innovation and technological excellence for the benefit of humanity. IEEE NITK belongs to the Region 10 under Bangalore Section and is an award winning student branch and one of the biggest worldwide. Students who have taken IEEE Student Membership in their 1st year, directly qualify for the interview rounds during their second year. Other Non-Member Students need to give a screening test, to qualify for the interviews.</b>
+</span>
+</div>
+      </div>
+    </div>
+  </div>
+ <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/acm.jpg' %}" alt="acm" style="width:100%">
+      <div class="container">
+        <h4>Vishakh P</h4>
+        <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/nitkacm/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+        <p><button class="button" onmouseover="myacm()" onmouseout="myacm()">ACM-NITK</button></p>
+<span class="nitkclubtext" id="acm"><b>ACM NITK plans and organizes a wide range of events that include technical workshops, guest lectures, online events and various other competitions at NITK, throughout the year. Our members come from all disciplines, backgrounds and interests providing a forum for students to undertake technical projects, develop organisational and leadership skills, and find like-minded students to work with. Students are eligible for recruitment in at the start of their second year. For first years, it's an open invite to come and attend our events year round and get to know the seniors at the club.
+</b></span>
+</div>
+      </div>
+    </div>
+  </div>
+
+<div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/iris.jpg' %}" alt="iris" style="width:100%">
+      <div class="container">
+        <h4>Akshay Revankar</h4>
+        <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/IRISNITK/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+  <div class="nitkclubs">
+        <p><button class="button"  onmouseover="myiris()" onmouseout="myiris()">IRIS-NITK</button></p>
+  <span class="nitkclubtext" id="iris"><b>A team of motivated students of NITK, ventured to build and develop an e-portal for enhanced student –teacher interaction. Under the guidance of Dr K V Gangadharan and with the resources provided by the CSD (Center for System Design) laboratory, the team has successfully developed a website with functionality to support efficient administration. Apart from the general advantages of switching to an e-platform, what makes this an indispensable alternative is that it avoids the negative connotations of security of data by strong encryption. Also, compatibility across various platforms and software has been considered. We have tried our best to maintain a strong backend to deliver the best service from our server.
+</b></span>
+</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+ <div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/ie.jpg' %}" alt="ie" style="width:100%">
+      <div class="container">
+        <h4>Nitya C Kamala</h4>
+       <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/ienitk/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+        <p><button class="button"  onmouseover="myie()" onmouseout="myie()">IE-NITK</button></p>
+<span class="nitkclubtext" id="ie"><b>The Institution of Engineers, NITK Chapter is an exclusive technical club. We aim to enhance the technical expertise of our fellow members and the student community, while acknowledging the importance of interdisciplinary and social work. The members fall into three core Special Interest Groups (SIGs), namely Code, Gadget and Garage. We also have auxiliary SIGs for members who are passionate about literature, social service or robotics. Second years are eligible for recruitment. </b>
+</span>
+</div>
+      </div>
+    </div>
+  </div>
+ <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/webclub.jpg' %}" alt="webclub" style="width:100%">
+      <div class="container">
+        <h4>Mohit Reddy</h4>
+       <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/web.club.nitk/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+  <div class="nitkclubs">
+        <p><button class="button"  onmouseover="mywebclub()" onmouseout="mywebclub()">Web Club-NITK</button></p>
+   <span class="nitkclubtext" id="webclub"><b>Webclub is a technical club with members enthusiastic about anything related to Computer Science. They currently focus mostly on making everyone familiar with competitive programming by conducting frequent coding competitions. They are also planning to contribute to open source communities and get involved more in the field of Machine Learning.</b>
+</span>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+<div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/iet.jpg' %}" alt="iet" style="width:100%">
+      <div class="container">
+        <h4>Sai Abhishek L</h4>
+         <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/ietnitk/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+       <p><button class="button"  onmouseover="myiet()" onmouseout="myiet()">IET-NITK</button></p>
+<span class="nitkclubtext" id="iet"><b>IET NITK chapter is a exclusive technical club under IET london division.It is actively involved in inculcating a passion for innovation and appreciation for scientific temperament in the minds of those who have the potential to change the future. It conducts seminars and workshops throughout the academic calendar striving to impart techincal ,social and managerial skills to the students. IET plays an integral role in planning and organizing various events in the techno-cultural fests of the institute ie ENGINEER and INCIDENT. Recruitment process takes place for second years.</b>
+</span>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+ <div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/aac.jpg' %}" alt="aac" style="width:100%">
+      <div class="container">
+        <h4>Vedant Dhruv</h4>
+         <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/SGCnitk/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+  <div class="nitkclubs">
+        <p><button class="button"  onmouseover="myaac()" onmouseout="myaac()">Amateur Astronomy Club</button></p>
+<span class="nitkclubtext" id="aac"><b>The Amateur Astronomy Club is a family of space enthusiasts that aims to develop an awareness of astronomy and astrophysics among people and encourage an interest in the field. It undertakes projects, conducts events, organizes talks by famous personalities and much more to cultivate interest in this field in NITK and beyond. Recruitments are held in the month of August. The club recruits B.Tech students in their second year and interested M.Sc. and M.Tech students.</b>
+</span></div>
+      </div>
+    </div>
+  </div>
+ <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/iste.jpg' %}" alt="iste" style="width:100%">
+      <div class="container">
+        <h4>Aniket Rege</h4>
+        <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/Isteadmin/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+        <p><button class="button" onmouseover="myiste()" onmouseout="myiste()" >ISTE-NITK</button></p>
+ <span class="nitkclubtext" id="iste"><b>Indian Society for Technical Education - NITK Chapter is the oldest technical society at the National Institute of Technology Karnataka. Besides organizing technical and cultural events and competitions for students of the institution, ISTE - NITK also hosts a range of workshops and educational seminars. ISTE - NITK also strives to promote liberal arts of our members via Special Interest Groups within the club, including, but not limited to, computer science, electronics, mechanics and robotics, civil engineering, business , literature ,video editing, photography and digital content creation. Recruitments take place in second year.</b></span>
+ </div>
+
+      </div>
+    </div>
+  </div>
+
+<div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/asce.jpg' %}" alt="asce" style="width:100%">
+      <div class="container">
+        <h4>Loganathan Navaneethan</h4>
+        <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/asceNITKStudentsGroup/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+  <div class="nitkclubs">
+        <p><button class="button"  onmouseover="myasce()" onmouseout="myasce()">ASCE-NITK</button></p>
+<span class="nitkclubtext" id="asce"><b>A student group with an international recognition, which conducts activities like Seminars, Workshops, Site Visits and Student Competitions related to various aspects of Civil Engineering. Recruitment of students will start with the pre recruitment talk for second years only.
+</b></span>
+</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+             <!--------------------------------------- Non-technical clubs--------------------------------- -->
+
+      <div id="non-technical" class="container tab-pane fade"><br>
+ <br>
+ <div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/roto.jpg' %}" alt="roto" style="width:100%">
+      <div class="container">
+        <h4>Achyut Menon</h4>
+        <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/RotaractClubNITK/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+        <p><button class="button" onmouseover="myrc()" onmouseout="myrc()">Rotaract Club-NITK</button></p>
+   <span class="nitkclubtext" id="rc"><b>Rotaract Club NITK Chapter is a socio-cultural club that is affiliated with the Surathkal division of Rotary International. The student members organize several events that not only raise awareness about specific causes but also proactively help redress problems in the local society through initiatives such as orphanage trips, marathons and beach cleanup drives. Recruitment process for the second years.</b>
+</span>
+ </div>
+      </div>
+    </div>
+  </div>
+ <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/af.jpg' %}" alt="af" style="width:100%">
+      <div class="container">
+        <h4>Kavya Atmakuri</h4>
+         <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/ArtistsForumNitk/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+<div class="nitkclubs">
+        <p><button class="button"  onmouseover="myaf()" onmouseout="myaf()">Artist's Forum</button></p>
+<span class="nitkclubtext" id="af"><b>Expressing emotions and envisaging ideals through Art' : that is our mission. We at Artists' Forum, believe in bigger ideas and better outcomes. The recruitment will be done in late August Selection based on Resume, Written test, various skill based tests and Personal interview.</b>
+</span>
+</div>
+      </div>
+    </div>
+  </div>
+
+<div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/e-cell.jpg' %}" alt="e-cell" style="width:100%">
+      <div class="container">
+        <h4>Sheetal Pasam</h4>
+        <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/ecellnitk/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+        <p><button class="button"  onmouseover="myec()" onmouseout="myec()">E-Cell</button></p>
+<span class="nitkclubtext" id="ec"><b>The entrepreneurship club of nitk that focuses on business, startups, marketing, finance etc. The recruitment process will consist of several rounds of interaction and tasks. Happening once a week for the first three weeks, followed by interviews and intake. </b>
+</span>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+ <div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/kanna.jpg' %}" alt="kanna" style="width:100%">
+      <div class="container">
+        <h4>Yogeesh N</h4>
+         <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/kannadavedikenitk/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+        <p><button class="button"  onmouseover="mykv()" onmouseout="mykv()">Kannada Vedike</button></p>
+<span class="nitkclubtext" id="kv"><b>Conducting kannada competitions, seminars and cultural programs to create awareness and teach the regional language kannada which is significantly essential to communicate with the local bodies while shopping in markets, participating in teaching govt. school children, other utilities like bicycle repair, bargaining and at many more places. It's open club. Who ever are interested can join and help in organizing events </b>
+</span>
+</div>
+      </div>
+    </div>
+  </div>
+ <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/music.jpg' %}" alt="music" style="width:100%">
+      <div class="container">
+        <h4>Anirudh Sriram</h4>
+       <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/MusicClubNITK/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+        <p><button class="button"  onmouseover="mymc()" onmouseout="mymc()">Music Club</button></p>
+<span class="nitkclubtext" id="mc"><b>The Music Club provides a creative outlet for those who consider themselves musicians to perform on stage and better themselves through jams and practices. Music nights and fests are the primary activities, with audio production becoming increasingly more popular.The recruitment process usually consists of two rounds. The first round tests the basic musical abilities of the participant and the second goes more in depth and tests their strengths and weaknesses.</b>
+</span>
+</div>
+      </div>
+    </div>
+  </div>
+
+<div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/macd.jpg' %}" alt="macd" style="width:100%">
+      <div class="container">
+        <h4>Athul Prakash I K</h4>
+         <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/MACD.NITK/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+        <p><button class="button"  onmouseover="mymacd()" onmouseout="mymacd()">Media Arts and Creative Design(MACD)</button></p>
+<span class="nitkclubtext" id="macd"><b>Behind the exhilarating teaser trailers and captivating posters for various occasions and events in the campus, is MACD, a group of media and creativity enthusiasts. Consisting of three SIGs - Media, Design and Content development, we make sure that all the three fuse together in spectacular fashion. The recruitment will be done in the beginning of the even sem, and will have two rounds. The first round will be done online where candidates will be asked to do tasks in a limited time. The best candidates will be interviewed and then selected.</b>
+</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+ <div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/photography.jpg' %}" alt="photography" style="width:100%">
+      <div class="container">
+        <h4>L Rajesh</h4>
+         <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/PHclubNITK/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs" onmouseover="mypc()" onmouseout="mypc()">
+        <p><button class="button">Photography Club</button></p>
+<span class="nitkclubtext" id="pc"><b>Where passion for the photography minds meet. Club stands for connecting the past memories and preserving them without interpretation of every event that happens in college. We might conduct photo click contest in second week of August. Top 3 clicks are directly recruited. Meanwhile,we pass a Google form contains personal and technical questions to be filled. We will have a interview in last week of August and recruit the best.
+.</b></span>
+</div>
+      </div>
+    </div>
+  </div>
+ <div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/filmsclub.jpg' %}" alt="filmsclub" style="width:100%">
+      <div class="container">
+        <h4>Shrinidhi Rao</h4>
+      <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/NITKFilmFestival/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+ <div class="nitkclubs">
+        <p><button class="button" onmouseover="myfilmsclub()" onmouseout="myfilmsclub()">  Film's Club (NITK)  </button></p>
+ <span class="nitkclubtext" id="films"><b>Films club screens movies at regular intervals at the Student Activity centre(SAC) or Silver jubilee Auditorium(SJA). Apart from English and Hindi, Regional films are screened as well. This club also organises the Film Fest, which takes place for 2-3 days , which includes screening of critically acclaimed movies across various genres and interaction with artists. Recruitment is open only for present second years who are genuinely interested in films activities. Students volunteering for work in fest and participation in various events are taken into consideration while shortlisting the interested students.</b>
+</span>
+</div>
+      </div>
+    </div>
+  </div>
+
+<div class="column">
+    <div class="card">
+      <img src="{% static 'site/img/ddfc.jpg' %}" alt="ddfc" style="width:100%">
+      <div class="container">
+        <h4>Sachin Singh</h4>
+        <h5><p class="title">Convener</p></h5>
+        <div style="margin: 24px 0;">
+    
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/DDFCNitk/"><i class="fab fa-facebook-f"></i></a>
+ </div>
+<div class="nitkclubs" >
+<p><button class="button" onmouseover ="myddfc()" onmouseout="myddfc()">DDFC-NITK</button></p>
+ <span class="nitkclubtext" id="ddfc"><b>The Dance Dramatics and Fashion Club (DDFC) is one of the biggest student clubs in NITK and organizes and hosts cultural events . Club recruitments, are held in the odd semester and the process consists of multiple rounds, including interviews and resume shortlisting.</b>
+</span>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+      </div>
+         </div>
+
+
+<script>
+function myddfc() {
+    var nitkclubs = document.getElementById("ddfc");
+    nitkclubs.classList.toggle("show");
+}
+function myfilmsclub() {
+    var nitkclubs = document.getElementById("films");
+    nitkclubs.classList.toggle("show");
+}
+function myieee() {
+    var nitkclubs = document.getElementById("ieee");
+    nitkclubs.classList.toggle("show");
+}
+function myacm() {
+    var nitkclubs = document.getElementById("acm");
+    nitkclubs.classList.toggle("show");
+}
+function myiris() {
+    var nitkclubs = document.getElementById("iris");
+    nitkclubs.classList.toggle("show");
+}
+function myie() {
+    var nitkclubs = document.getElementById("ie");
+    nitkclubs.classList.toggle("show");
+}
+function mywebclub() {
+    var nitkclubs = document.getElementById("webclub");
+    nitkclubs.classList.toggle("show");
+}
+function myiet() {
+    var nitkclubs = document.getElementById("iet");
+    nitkclubs.classList.toggle("show");
+}
+function myaac() {
+    var nitkclubs = document.getElementById("aac");
+    nitkclubs.classList.toggle("show");
+}
+function myiste() {
+    var nitkclubs = document.getElementById("iste");
+    nitkclubs.classList.toggle("show");
+}
+function myasce() {
+    var nitkclubs = document.getElementById("asce");
+    nitkclubs.classList.toggle("show");
+}
+function myaf() {
+    var nitkclubs = document.getElementById("af");
+    nitkclubs.classList.toggle("show");
+}
+function myrc() {
+    var nitkclubs = document.getElementById("rc");
+    nitkclubs.classList.toggle("show");
+}
+function myec() {
+    var nitkclubs = document.getElementById("ec");
+    nitkclubs.classList.toggle("show");
+}
+function mykv() {
+    var nitkclubs = document.getElementById("kv");
+    nitkclubs.classList.toggle("show");
+}
+function mymc() {
+    var nitkclubs = document.getElementById("mc");
+    nitkclubs.classList.toggle("show");
+}
+function mymacd() {
+    var nitkclubs = document.getElementById("macd");
+    nitkclubs.classList.toggle("show");
+}
+function mypc() {
+    var nitkclubs = document.getElementById("pc");
+    nitkclubs.classList.toggle("show");
+}
+function myasce() {
+    var nitkclubs = document.getElementById("asce");
+    nitkclubs.classList.toggle("show");
+}
+</script>
+
+<br>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+</div>
+<!-------------------------------------------------Academics section----------------------------------- -->
+
+<div class="tab-pane fade" id="nav-academics" role="tabpanel" aria-labelledby="nav-academics-tab">
+  <h3 class="wsite-content-title" style="text-align:center;">&nbsp;ACADEMICS</h3>
+<hr class="hr1" style="color:#A52A2A;">
+<br>
+<div class="container">
+  <ul>
+    <li>Each academic year shall be divided into 2 semesters, each of 20 weeks duration, including
+evaluation and grade finalization, etc. The <b>Academic Session</b> in each semester shall provide for at
+least 70 Teaching Days, with at least 40 hours of teaching contact periods in a five-days session
+per week. The <b>semester</b> that is typically from <b>Mid July</b> to <b>November</b> is called the <b>ODD
+SEMESTER,</b> and the one that is from <b>January to Mid-May</b> is called the <b>EVEN SEMESTER</b>.</li>
+  <li><b> Academic Session may be scheduled for the Summer Session/Semester as well.</b></li>
+  <li>The normal duration of the course leading to <b>B.Tech. </b>degree will be <b>EIGHT semesters.</b></li>
+  <li>The normal duration of the course leading to <b>M.Tech.</b> degree will be <b>FOUR semesters</b></li>
+  <li>The normal duration of the course leading to <b>M.C.A. </b>degree will be <b>SIX semesters.</b></li>
+  <li>The normal duration of the course leading to <b>M.B.A. </b>degree will be <b>FOUR semesters</b></li>
+   <li>The normal duration of the course leading to <b>M.Sc. </b>degree will be <b>FOUR semesters</b></li>
+   </ul>
+<br>
+<hr style="color:#A52A2A;">
+<br>
+<h4 align="center">NITK Evaluation System:</h4>
+<ul>
+  <li><b>Course Credit Assignment:</b>
+  <pre><h6>Every Course comprises of specific Lecture-Tutorial-Practical (L-T-P) Schedule. The Course Credits are fixed based on
+    the following norms:
+               Lectures/ Tutorials :            One hour per week is assigned one Credit.
+               Practicals :                    (i) a 3-hour session per week is assigned two Credits;
+                                                                 OR
+                                               (ii) a 2-hour session per week is assigned one Credit.
+
+<b>For example,</b> a theory course with a L-T-P schedule of 3-1-0 will be assigned 4 credits; a
+laboratory practical course with a L-T-P schedule of 0-0-3 will be assigned 2 credits.</h6></pre></li>
+ <li>The Academic Performance Evaluation of a Student shall be according to a Letter Grading System, based on the Class Performance Distribution, and not based upon any fixed apriori mappings or
+any absolute scale conversions from the Raw-Scores Scale (e.g. percentage-marks) to the Grade- Points Scale. </li>
+ <li>The double-letter grade (AA, AB, BB, BC, CC, CD, DD, FF) indicates the level of academic
+achievement, assessed on a decimal (0-10) scale.</li>
+<li><b><h6>Letter-Grades and Grade-Points:</h6></b>
+ <div class="nks">
+ <table>
+  <tr>
+   <th>Letter-Grade</th>
+   <th>Grade-Points</th>
+   <th>Remarks</th>
+  </tr>
+  <tr>
+     <td>AA</td>
+     <td>10</td>
+     <td>-------</td>
+  </tr>
+  <tr>
+    <td>AB</td>
+     <td>9</td>
+     <td>-------</td>  </tr>
+  <tr>
+     <td>BB</td>
+     <td>8</td>
+     <td>-------</td> </tr>
+  <tr>
+  <td>BC</td>
+     <td>7</td>
+     <td>-------</td>
+  </tr>
+  <tr>
+  <td>CC</td>
+     <td>6</td>
+     <td>-------</td>
+  </tr>
+  <tr>
+  <td>CD</td>
+     <td>5</td>
+     <td>-------</td>
+  </tr>
+  <tr>
+  <td>DD</td>
+     <td>4</td>
+     <td>-------</td>
+  </tr>
+  <tr>
+  <td>FF</td>
+     <td>0</td>
+     <td>Fail due to poor perfomance</td>
+  </tr>
+  <tr>
+  <td>FA</td>
+     <td>0</td>
+     <td>Fail due to attendance shortage</td>
+  </tr>
+  <tr>
+  <td>I</td>
+     <td>-</td>
+     <td>Incomplete</td>
+  </tr>
+  <tr>
+  <td>U</td>
+     <td>-</td>
+     <td>Audited</td>
+  </tr>
+  <tr>
+  <td>W</td>
+     <td>-</td>
+     <td>Withdrawal</td>
+  </tr>
+  <tr>
+  <td>S</td>
+     <td>-</td>
+     <td>Satisfactory</td>
+  </tr>
+  <tr>
+  <td>N</td>
+     <td>-</td>
+     <td>Unsatisfactory</td>
+  </tr>
+</table>
+</div>
+</li>
+<li>The above Grades awarded to the student Based on their performance in quizzes, tutorials, assignments etc,in addition to one Mid-Semester examination and one End-Semester examination.
+<b> The distribution of weightage among these components may be as follows:</b>
+<br>
+<div class="nks">
+ <table>
+  <tr>
+   <th>Exams-Conduct</th>
+   <th>Weightage</th>
+   <th>Duration(hours)</th>
+  </tr>
+  <tr>
+     <td>End-Semester</td>
+     <td>50%</td>
+     <td>3 hours</td>
+  </tr>
+  <tr>
+    <td>Mid-Semester</td>
+     <td>25%</td>
+     <td>1 – 1½ hours</td>  </tr>
+  <tr>
+     <td>Quizzes,Assignments etc.</td>
+     <td>25%</td>
+     <td>its depends on faculty</td>
+   </tr>
+   <tr>
+    <td>Total</td>
+    <td>100%</td>
+    <td>-----</td>
+   </tr>
+</table>
+</div>
+</li>
+<b><h6>NOTE: Any variation, other than the above distribution, requires the approval of of the pertinent
+DUGC/DPGC/DRPC.
+</h6></b>
+ </ul>
+</div>
+
+</div>
+</div>
+</div>
+{% endblock %}

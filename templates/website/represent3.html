@@ -1,0 +1,251 @@
+{% extends "main_website/base.html" %}
+		{% load static %}
+		{% block breadcrumb %}
+		<div>
+				<ul class="breadcrumb" >
+					<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+					<li class="breadcrumb-item"><a href="{% url 'represent' %}" class="text-dark font-weight-bold"  style="text-decoration:none" >Represent</a></li>
+				</ul>
+		</div>
+		{% endblock %}
+
+		{% block content %}
+			{%load static%}
+		<div class="container rounded" style="margin-top: 20px;padding-top: 15px;background-color: #19191942;;">
+            <nav>
+                <div class="nav nav-tabs " id="nav-tab" role="tablist">
+                    <a class="col-lg-1"></a>
+                    <a class="nav-item nav-link active col-lg-2" id="nav-core_member-tab" data-toggle="tab" href="#nav-core_member" role="tab" aria-controls="nav-core_member" aria-selected="true" >Core Members</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-team_engineer-tab" data-toggle="tab" href="#nav-team_engineer" role="tab" aria-controls="nav-team_engineer" aria-selected="false">Team Engineer</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-team_incident-tab" data-toggle="tab" href="#nav-team_incident" role="tab" aria-controls="nav-team_incident" aria-selected="false">Team Incident</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-secretaries-tab" data-toggle="tab" href="#nav-secretaries" role="tab" aria-controls="nav-secretaries" aria-selected="false">Secretaries</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-class_representatives-tab" data-toggle="tab" href="#nav-class_representatives" role="tab" aria-controls="nav-class_representatives" aria-selected="false">Class Representatives</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent" style="margin-top:50px;padding-bottom:125px;">
+
+                <div class="tab-pane fade show active" id="nav-core_member" role="tabpanel" aria-labelledby="nav-core_member-tab" >
+                    <div class="row col-lg-12" style="display:inline-flex;margin-left: 0px;padding-bottom: 10px;">
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; ">
+                            <img class="rounded-circle fixed" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                            <p class="" style="margin-top: 10px;">PRESIDENT</p>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; ">
+                            <img class="rounded-circle fixed" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                            <p class="" style="margin-top: 10px;">VICE PRESIDENT</p>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; text-align:center;">
+                            <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                            <p class="" style="margin-top: 10px;">GENERAL SECRETARY</p>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-lg-12" style="display:inline-flex;margin-top: 40px;margin-left: 0px;padding-bottom: 10px;">
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; text-align:center;">
+                                <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                                <p class="" style="margin-top: 10px;">JOINT SECRETARY UG</p>
+                                <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; text-align:center;">
+                                <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="width: 160px;"/>
+                                <p class="" style="margin-top: 10px;">JOINT SECRETARY PG/PhD</p>
+                                <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; text-align:center;">
+                                <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                                <p class="" style="margin-top: 10px;">PG/PhD GIRLS REP</p>
+                                <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-team_engineer" role="tabpanel" aria-labelledby="nav-team_engineer-tab">
+                    <div class="row col-lg-12" style="display:inline-flex;margin-left: 0px;padding-bottom: 10px;">
+                        <div class="col-lg-4 pr-detail " style="text-align:center;  ">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; text-align:center;">
+                                <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="width: 160px;"/>
+                                <p class="" style="margin-top: 10px;">CONVENOR</p>
+
+                                <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; text-align:center;">
+                            <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                            <p class="" style="margin-top: 10px;">TREASURER</p>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; text-align:center;">
+                            <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                            <p class="" style="margin-top: 10px;">JOINT CONVENOR</p>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-team_incident" role="tabpanel" aria-labelledby="nav-team_incident-tab">
+                    <div class="row col-lg-12" style="display:inline-flex;margin-left: 0px;padding-bottom: 10px;">
+                        <div class="col-lg-4 pr-detail " style="text-align:center;  ">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;margin-right: 70px; text-align:center;">
+                                <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="width: 160px;"/>
+                                <p class="" style="margin-top: 10px;">CONVENOR</p>
+
+                                <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; text-align:center;">
+                            <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                            <p class="" style="margin-top: 10px;">TREASURER</p>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; text-align:center;">
+                            <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                            <p class="" style="margin-top: 10px;">JOINT CONVENOR</p>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-secretaries" role="tabpanel" aria-labelledby="nav-secretaries-tab">
+                    <div style="margin-bottom:10px;">
+                        <span class="col-sm-12 navbar-text text-black" style="text-align: center;margin-top: -16px;font-size:25px;font-family: -webkit-pictograph;font-style: initial;">Technical Secretaries </span>
+                    </div>
+                    <div class="row col-lg-12" style="display:inline-flex;">
+
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-4 pr-detail " style="text-align:center;  ">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;margin-right: 70px; text-align:center;">
+                                <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="width: 160px;"/>
+                                <p class="" style="margin-top: 10px;">Technical Secretary PG </p>
+
+                                <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;margin-right: 70px; text-align:center;">
+                            <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                            <p class="" style="margin-top: 10px;">Technical Secretary UG </p>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2"></div>
+
+                    </div>
+                    <div>
+                        <span class="col-sm-12 navbar-text text-black" style="text-align: center;font-size:25px;font-family: -webkit-pictograph;font-style: initial;margin-top: 16px;
+    margin-bottom: 10px;">Cultural Secretaries </span>
+                    </div>
+                    <div class="row col-lg-12" style="display:inline-flex;">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-4 pr-detail " style="text-align:center;  ">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;margin-right: 70px; text-align:center;">
+                                <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="width: 160px;"/>
+                                <p class="" style="margin-top: 10px;">Cultural Secretary PG</p>
+
+                                <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;margin-right: 70px; text-align:center;">
+                            <img class="rounded-circle" src="{% static 'site/img/presi.jpg'%}" style="    width: 160px;"/>
+                            <p class="" style="margin-top: 10px;">Cultural Secretary UG</p>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">Candidate Name</p>
+                                    <p class="" style="margin-top: 10px;">temp.email@gmail.com</p>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2"></div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-class_representatives" role="tabpanel" aria-labelledby="nav-class_representatives-tab">
+                    ...
+                </div>
+            </div>
+
+        </div>
+        <div class="head">
+		</div>
+        <div class="head">
+		</div>
+		{% endblock %}

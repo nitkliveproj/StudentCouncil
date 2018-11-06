@@ -1,0 +1,62 @@
+
+
+
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+    <style type="text/css">
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+    i
+    {
+      font-size: 22px;
+      margin-left:10px;
+    }
+    .card
+    {
+      box-shadow: 0 1px 1px #b2b2b2;
+    }
+    </style>
+{% endblock %}
+
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>      
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'faq' %}" class="text-dark font-weight-bold"  style="text-decoration:none">Frequently asked Questions</a></li>
+  <li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<form method="POST" action="">
+	{% csrf_token %}
+{{ form.as_p }}
+<input type='submit' value='Save' />
+</form>
+<br><br><br><br><br><br><br>
+</div>
+{% endblock %}

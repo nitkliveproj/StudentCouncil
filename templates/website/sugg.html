@@ -1,0 +1,168 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+
+<head><title>Suggestions</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+
+    <style type="text/css">
+    .form-control{
+    height: 41px;
+    background: #f2f2f2;
+    box-shadow: none !important;
+    border: none;
+  }
+  .form-control:focus{
+    background: #e2e2e2;
+  }
+    .form-control, .btn{        
+        border-radius: 3px;
+    }
+  .suggestion-form{
+    width:1000px;
+    margin: 30px auto;
+  }
+  .suggestion-form form{
+    color: #999;
+    border-radius: 3px;
+      margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+  .suggestion-form h2 {
+    color: #333;
+    font-weight: bold;
+        margin-top: 0;
+    }
+    .suggestion-form h6 {
+    color: #A9A9A9;
+    font-weight: bold;
+        margin-top: 0;
+    }
+    
+    .suggestion-form hr {
+        margin: 0 -30px 20px;
+    }    
+  .suggestion-form .form-group{
+    margin-bottom: 20px;
+  }
+  .suggestion-form input[type="checkbox"]{
+    margin-top: 3px;
+  }
+  .suggestion-form .row div:first-child{
+    padding-right: 10px;
+  }
+  .suggestion-form .row div:last-child{
+    padding-left: 10px;
+  }
+    .suggestion-form .btn{        
+        font-size: 16px;
+        font-weight: bold;
+    background: #3598dc;
+    border: none;
+    min-width: 100px;
+    }
+  .suggestion-form .btn:hover, .suggestion-form .btn:focus{
+    background: #2389cd !important;
+        outline: none;
+  }
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+    </style>
+{% endblock %}
+
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>      
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+	<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'sugg' %}" class="text-dark font-weight-bold"  style="text-decoration:none">Suggestions</a></li>
+	<li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block content %}
+<div class="suggestion-form">
+    <form method="POST" action="">
+      {% csrf_token %}
+    <h2 class="text-success">Suggestion Details</h2>
+    <p>Please fill the correct information</p>
+    <hr>
+        <div class="form-group"> 
+        <h6>Name:*</h6>
+        <input type="text" class="form-control " name="name"  required="required">
+        </div>
+
+        <div class="form-group">
+          <h6>Roll no:*</h6>
+          <input type="text" class="form-control" name="rollnumber"  required="required">  
+        </div>
+
+        <div class="form-group">
+          <h6>Email-id*</h6>
+          <input type="email" class="form-control" name="email"  required="required">
+        </div>
+    <div class="form-group">
+      <h6>Mobile number</h6>
+            <input type="text" class="form-control" name="mobile"  required="required">
+        </div> 
+    <div class="form-group">
+          
+        </div>   
+     <div class="form-group">
+          <strong><label for="section">Which division you would want to address*</label></strong>
+       <select class="form-control" id="section" name="section" required="required">
+      <option value="infrastructure">Infrastructure</option>
+      <option value="hostelmaintenance">Hostels maintenance</option>
+      <option value="messfood">Mess Food</option>
+    <option value="academics">Academics</option>
+    <option value="sports">Sports</option>
+    <option value="studentactivities">Student Activities</option>
+    <option value="other">Other</option>
+    </select>
+        </div> 
+    
+    <div class="form-group">
+      <h6>Your Problem:</h6>
+         <textarea class="form-control" name="problem" rows="10" cols="30" required="required"> </textarea>
+        </div>
+    <div class="form-group">
+      <h6>Solution You Propose</h6>
+         <textarea class="form-control" name="solution" rows="10" cols="30" required="required"> </textarea>
+        </div>
+     <div class="form-group">
+          
+        </div> 
+    <div class="form-group" align="center">
+            <button type="submit" name="submit" class="btn btn-primary btn-lg">Submit</button>
+      <button type="reset" name="submit" class="btn btn-primary btn-lg">Reset</button>
+        </div>
+    </form>
+  </div>
+    <br><br><br><br>
+{% endblock %}

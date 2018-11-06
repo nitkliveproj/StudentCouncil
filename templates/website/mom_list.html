@@ -1,0 +1,90 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+    <style type="text/css">
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+     .card
+    {
+      box-shadow: 0 1px 1px #b2b2b2;
+    }
+    </style>
+{% endblock %}
+
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>      
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+	<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'MoM' %}" class="text-dark font-weight-bold"  style="text-decoration:none">Minutes of Meetings</a></li>
+	<li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container rounded" style="margin-top: 20px;padding-top: 15px;background-color: #f9f9f9;">
+<div class="text-danger" style="text-align:center;font-size:35px">Minutes of Meeting - Student Council 2018</div>
+<br>  <div class="card">
+      <div style="padding-bottom: 10px;padding-top: 55px">
+      <ul style="list-style-type:inherit;font-size:18px;color:#ffffff">
+                          
+                          <div class="row"> 
+                            {% for a in queryset %}
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-3">
+                              <div class="card" style="margin-bottom: 40px; width:175px">
+                                <p class="text-muted" style="font-size:15px;text-align:center">
+                                   <a class="text-success" style=" text-decoration: none; font-size: 23px" href="{{ a.pdf.url }}" >
+                                  <img class="card-img-top" src="{% static 'website/images/adobe.png'%}" alt="Card image" style="width:175px;height: 175px;">
+                            {{ a.title  }}</a><br>{{a.timestamp.date}}</p>
+                          </div>
+                            
+                          </div>
+                            {% endfor %}  
+                          </div> 
+
+       
+      </ul>
+      </div>
+       
+</div>
+</div>
+{% endblock %}
+
+
+<!--<div class="container rounded" style="margin-top: 20px;padding-top: 15px;background-color: #FFFFFF;">
+<div class="text-danger" style="text-align:center;font-size:35px">Annual Senate Reports of NITK</div>
+<br>
+<div style="padding-bottom: 10px">
+<div class="card">
+<ul style="list-style-type:inherit;font-size:18px;color:#ffffff">
+
+
+            {% for report in report_set %}
+            <a href="{{ report.document.url }}"><li>{{ report.report }}</li><br></a>
+            {% endfor %}
+</ul>
+</div>
+</div>
+</div>-->

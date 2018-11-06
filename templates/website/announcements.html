@@ -1,0 +1,77 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+    <style type="text/css">
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+    i
+    {
+      font-size: 12px;
+      padding-right: 5px;
+    }
+    
+
+    </style>
+{% endblock %}
+
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>      
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'announcements' %}" class="text-dark font-weight-bold"  style="text-decoration:none">Announcements</a></li>
+  <li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container rounded" style="background-color:#FFFFFF;font-size:25px" >
+  <div style="padding-bottom: 10px">
+  <div id="accordion">
+    <p class="text-danger" style="text-align: center;font-size:40px;">Announcements</p>
+    {% for a in ann_set %}
+
+
+    <div class="card" style="margin-bottom: 10px;">
+      <div class="card-header" style="background-color:#FFFFFF;>
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapse{{a.id}}">
+          <h5 class="text-success"><i class="fas fa-location-arrow"></i>{{a.heading}}</h5>
+          <h6 class="text-muted" style="padding-left: 20px:">Posted on:{{a.postdate}}</h6>
+        </a>
+      </div>
+      <div id="collapse{{a.id}}" class="collapse" data-parent="#accordion">
+        <div class="card-body" style="margin-bottom: 10px">
+          <h6>{{a.content}}</h6>
+          <h6><strong>Eventdate-</strong>{{a.eventdate}}</h6>
+          <h6><strong>Contact at</strong>:{{a.contact}}</h6>
+        </div>
+      </div>
+    </div>
+    
+    {% endfor %}
+  </div>
+  </div>
+</div>
+
+{% endblock %}

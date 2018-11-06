@@ -1,0 +1,199 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/css/home.css' %}">
+		<style type="text/css">
+		body
+		{
+			background-image: url({% static 'website/images/beach.jpg'%});
+			background-size: cover;
+		}
+		</style>
+{% endblock %}	
+
+{% block breadcrumb_items %}
+	<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+	<li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block login%}
+	{% if user.is_authenticated %}
+	<li class="nav-item dropdown pl-4">
+		<a data-toggle="dropdown">
+			<img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+						{% endif %}" alt='User'>
+		</a>
+		<div class="dropdown-menu dropdown-menu-right">
+			<a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+		</div>			
+	</li>
+	{% else %}
+		<li class="nav-item pl-2">
+		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+		</li>
+	{% endif %}
+{% endblock %}
+
+{% block content %}	
+		<div class="container-fluid ">
+			<div class="row">
+				<!--<div class="col-sm-1"></div>-->
+				<div class="col-sm-3">
+					<div class="text-center center"><i class="fas fa-bullhorn" style="font-size:45px;color: white;"></i>
+					</div>
+					<div class="center card" style="height: 300px; margin-top: 10px ;">
+						<div class="card-header text-dark text-center font-weight-bold">Announcements</div>
+						<div class="card-body newsholder">
+							<marquee direction="up" scrollamount="1.7" scrolldelay="3" onmouseover="this.stop()" onmouseout="this.start()">
+								<ul id="news">
+									{% for a in a_set %}
+									<li><span><i class="fas fa-arrow-right" style="font-size:24px"></i> <a href="#"> {{a.heading}}</a>
+									</span></li>
+									{% endfor %}
+								</ul>
+							</marquee>
+						</div>
+						<div class="card-footer text-light text-center">
+							<a href="{% url 'announcements' %}" style="text-decoration: none">View all</a>
+						</div>	
+					</div>
+				</div>
+				<div class="col-sm-6 center">
+					<div id="slider" class="carousel slide" data-ride="carousel">
+						<ul class="carousel-indicators">
+							<li data-target="#slider" data-slide-to="0" ></li>
+							<li data-target="#slider" data-slide-to="1" ></li>
+							<li data-target="#slider" data-slide-to="2" ></li>
+							<li data-target="#slider" data-slide-to="3" ></li>
+							<li data-target="#slider" data-slide-to="4" ></li>
+							<li data-target="#slider" data-slide-to="5" ></li>
+							<li data-target="#slider" data-slide-to="6" ></li>
+							
+						</ul>
+
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<img src="{% static 'website/images/Ariel.jpg'%}" style="height: 400px; width: 100%" alt="Council">
+								<div class="carousel-caption">
+	    							<h3 class="text-white font-weight-bold">NITK Ariel View</h3>
+	  							</div>
+							</div>
+							<div class="carousel-item ">
+								<img src="{% static 'website/images/Pavilion.png'%}" style="height: 400px; width: 100%" alt="Pavilion">
+								<div class="carousel-caption">
+	    							<h3 class="text-white font-weight-bold">Pavilion</h3>
+	  							</div>
+							</div>
+							<div class="carousel-item ">
+								<img src="{% static 'website/images/SAC.png'%}" style="height: 400px; width: 100%" alt="SAC">
+								<div class="carousel-caption">
+	    							<h3 class="text-white font-weight-bold">SAC</h3>
+	  							</div>
+							</div>
+							<div class="carousel-item ">
+								<img src="{% static 'website/images/nitk_light_house.jpg'%}" style="height: 400px; width: 100%" alt="SAC">
+								<div class="carousel-caption">
+	    							<h3 class="text-white font-weight-bold">NITK Light House</h3>
+	  							</div>
+							</div>
+							<div class="carousel-item ">
+								<img src="{% static 'website/images/e_library.jpg'%}" style="height: 400px; width: 100%" alt="SAC">
+								<div class="carousel-caption">
+	    							<h3 class="text-white font-weight-bold">E Library</h3>
+	  							</div>
+							</div>
+							<div class="carousel-item ">
+								<img src="{% static 'website/images/mb2.jpg'%}" style="height: 400px; width: 100%" alt="SAC">
+								<div class="carousel-caption">
+	    							<h3 class="text-white font-weight-bold">Main Building</h3>
+	  							</div>
+							</div>
+							<div class="carousel-item ">
+								<img src="{% static 'website/images/im2.jpg'%}" style="height: 400px; width: 100%" alt="SAC">
+								<div class="carousel-caption">
+	    							<h3 class="text-white font-weight-bold">IM2 </h3>
+	  							</div>
+							</div>
+						</div>
+						
+						<a class="carousel-control-prev" href="#slider" data-slide="prev">
+	    				<span class="carousel-control-prev-icon"></span>
+						</a>
+						<a class="carousel-control-next" href="#slider" data-slide="next">
+						<span class="carousel-control-next-icon"></span>
+						</a>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="text-center center"><i class="fab fa-blogger-b" style="font-size:45px;color: white;"></i>
+					</div>
+					<div class="center card" style="height: 300px; margin-top: 10px ;">
+						<div class="card-header text-dark text-center font-weight-bold">Blogs</div>
+						<div class="card-body newsholder">
+							<marquee direction="up" scrollamount="1.7" scrolldelay="3" onmouseover="this.stop()" onmouseout="this.start()">
+								<ul id="news">
+									{% for b in b_set %}
+									<li><span><i class="fas fa-arrow-right" style="font-size:24px"></i> <a href="#">{{b.title}}</a>
+									</span></li>
+									{% endfor %}
+								</ul>
+							</marquee>
+						</div>
+						<div class="card-footer text-light text-center">
+							<a href="{% url 'List' %}" style="text-decoration: none">View all</a>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+		<br/><br/><br/>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-1">
+				</div>
+				<div class="col-lg-4">
+					<div class="card sm-primary">
+			    		<img class="card-img-top" src="{% static 'website/images/tech1.jpg' %}" alt="Card image" style="width:100%">
+			    		<div class="card-body text-center">
+			      			<a href="nitk_life/#technical_clubs"><p class="card-text"  style="max-height: 48px;color:blue">Technical Clubs</p></a>
+			    		</div>
+			    	</div>
+				</div>
+				<div class="col-lg-2">
+				</div>
+
+				<div class="col-sm-4">
+				    <div class="card sm-primary">
+				    	<img class="card-img-top" src="{% static 'website/images/nontech.jpg' %}" alt="Card image" style="width:100%">
+				    	<div class="card-body text-center">
+				      		<a href="nitk_life/#non-technical"><p class="card-text" style="max-height:40px;color:blue">Non-Technical</p></a>
+				    	</div>
+				    </div>
+				</div>
+			</div>
+		</div>
+		<br><br><br><br><br><br><br>
+		
+{% endblock %}		
+
+{% block info %}
+<!--<div class="container-fluid">
+				<div class="row bg-dark clearfix" >
+					<div class="float-left col-sm-4 text-center text-white">
+						<button class="btn bg-dark"><a class="text-white font-weight-bold" href="#" >About Us</a></button>
+					</div>
+					<div class="col-sm-4 text-center " >
+						<a href="#"><i class="fa fa-facebook-square" style="font-size: 36px;color:#3b5998;"></i></a>
+						<a class="ml-4" href="#" ><i class="fa fa-instagram" style="font-size: 36px;color:#e4405f;"></i></a>
+					</div>
+					<div class="float-right col-sm-4 text-center text-white ">
+						<button class="btn bg-dark"><a class="text-center text-white font-weight-bold" href="#" >Contact Us</a></button>
+					</div>
+				</div>
+</div>-->
+{% endblock %}

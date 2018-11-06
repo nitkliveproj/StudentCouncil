@@ -1,0 +1,779 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+    <style type="text/css">
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+
+    </style>
+{% endblock %}
+
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+	<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'senate_reports' %}" class="text-dark font-weight-bold"  style="text-decoration:none">Senate </a></li>
+	<li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container rounded" style="margin-top: 15px;padding-top: 15px;background-color: #19191942;;">
+            <nav>
+                <div class="nav nav-tabs " id="nav-tab" role="tablist">
+                    <a class="col-lg-1"></a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-chairman-tab" data-toggle="tab" href="#nav-chairman" role="tab" aria-controls="nav-chairman" aria-selected="true">Chairman</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-secretary-tab" data-toggle="tab" href="#nav-secretary" role="tab" aria-controls="nav-secretary" aria-selected="false">Secretary</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-external_member-tab" data-toggle="tab" href="#nav-external_members"
+                    role="tab" aria-controls="nav-external_members" aria-selected="false">External Members</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-members-tab" data-toggle="tab" href="#nav-members" role="tab"
+                    aria-controls="nav-members" aria-selected="false">Members</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent" style="margin-top:50px;padding-bottom:125px;">
+            	<div class="tab-pane fade show active" id="nav-chairman" role="tabpanel" aria-labelledby="nav-chairman-tab" >
+            		<div class="card">
+				  	<div class="row">
+				   <div class="col-sm-6">
+				    <img src="{% static 'main_website/images/42.jpg'%}"  alt="John" style="width:100%">
+				   </div>
+				    <div class="col-sm-6">
+				    <p>Prof. Uma Maheshwar Rao Karanam has graduated in Mining Engineering from Osmania University, Hyderabad in the year 1983. After working in various mining industries for a total period of around 3 years, he joined Indian Institute of Technology Banaras Hindu University (IT-BHU) for a Masters in engineering program. He acquired his M-Tech in Mining Engineering in 1987, and was the topper of the class with a CGPA of 9.38 on 10. </p>
+				     Prof. Rao started his teaching career as a Lecturer in Mining Engineering at the then Regional Engineering College, Surathkal, DK, Karnataka during 1987-89.  Later in the year 1989 he joined Indian Institute of Technology, Kharagpur in the Department of Mining Engineering as a Lecturer. (JEE).
+					</div>
+				   </div>
+				   <h3><br>K. Uma Maheshwar Rao<br></h3>
+				  <p class="title">Director,NITK</p>
+				  <div>
+				    <a href="#"><i class="fa fa-facebook"></i></a>
+				    <a href="#"><i class="fa fa-twitter"></i></a>
+				    <a href="#"><i class="fa fa-linkedin"></i></a>
+				 </div>
+				  <button type="button" class="btn btn-danger">Chairman</button>
+				</div>
+
+				</div>
+
+  				<div class="tab-pane fade" id="nav-secretary" role="tabpanel" aria-labelledby="nav-secretary-tab" >
+  					<div class="card">
+  <div class="row">
+   <div class="col-sm-6">
+    <img src="{% static 'main_website/images/index.jpg'%}"  alt="John" style="width:100%">
+   </div>
+    <div class="col-sm-6">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+	Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  Dictum non consectetur a erat nam at lectus.  Tellus id interdum velit laoreet id. Purus ut faucibus pulvinar elementum integer enim neque volutpat. Lacus sed turpis tincidunt id aliquet risus feugiat in ante. Ornare suspendisse sed nisi lacus. Semper quis lectus nulla at volutpat diam ut. Risus nec feugiat in fermentum posuere.</p>
+	</div>
+   </div>
+   <h3><br>K. Ravindranath<br></h3>
+  <p class="title">Registrar,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Secretary</h4>
+</div>
+ 				</div>
+
+				<div class="tab-pane fade" id="nav-external_members" role="tabpanel" aria-labelledby="nav-external_members-tab" >
+					<div class="card-deck">
+ <div class="card">
+  <div class="row">
+   <div class="col-sm-6">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   </div>
+    <div class="col-sm-6">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean. Egestas egestas fringilla phasellus faucibus scelerisque </p></div>
+   </div>
+   <h3><br>K. Uma Maheshwar Rao<br></h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">External Member</h4>
+</div>
+
+ <div class="card">
+  <div class="row">
+   <div class="col-sm-6">
+    <img src="{% static 'main_website/images/index.jpg'%}"  alt="John" style="width:100%">
+   </div>
+    <div class="col-sm-6">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean. Egestas egestas fringilla phasellus faucibus scelerisque </p></div>
+   </div>
+   <h3><br>K. Uma Maheshwar Rao<br></h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">External Member</h4>
+</div>
+
+ <div class="card">
+  <div class="row">
+   <div class="col-sm-6">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   </div>
+    <div class="col-sm-6">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu turpis egestas pretium aenean. Egestas egestas fringilla phasellus faucibus scelerisque </p></div>
+   </div>
+   <h3><br>K. Uma Maheshwar Rao<br></h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">External Member</h4>
+</div>
+
+
+</div>
+				</div>
+
+				<div class="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab" >
+					<div class="card-deck">
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Chairman</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="{% static 'main_website/images/index.jpg'%}"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+</div>
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+</div>
+<br><br><br>
+
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+</div>
+
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Chairman</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+</div>
+
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Chairman</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+</div>
+
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Chairman</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+</div>
+
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Chairman</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+</div>
+
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Chairman</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+</div>
+
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Chairman</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+</div>
+
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Chairman</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+</div>
+
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Chairman</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+</div>
+
+<div class="row col-sm-12">
+<div class="col-sm-4">
+<div class="card">
+    <img src="ph.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+ </div>
+  <button type="button" class="btn btn-danger">Chairman</button>
+</div>
+
+</div>
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+
+
+
+<div class="col-sm-4">
+<div class="card">
+    <img src="index.jpg"  alt="John" style="width:100%">
+   <h3>K. Uma Maheshwar Rao</h3>
+  <p class="title">Director,NITK</p>
+  <div>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+
+ </div>
+  <button type="button" class="btn btn-danger">Member</button>
+</div>
+</div>
+</div>
+
+
+
+</div>
+
+ 				</div>
+ 			</div>
+
+<div class="head">
+ </div>
+{% endblock %}

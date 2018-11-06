@@ -1,0 +1,108 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+    <style type="text/css">
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+     .card
+    {
+      box-shadow: 0 10px 10px #b2b2b2;
+    }
+    </style>
+    {% endblock %}
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>      
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'List' %}" class="text-dark font-weight-bold"  style="text-decoration:none">Literary Archive</a></li>
+  <li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+{% block content %}
+<div class="container rounded" style="background-color: #FFFFFF"align="center">
+<p class="text-danger" style="font-size:40px">Literary Archive</p>
+    
+    <div class="row">
+         {% for a in queryset %}
+         <div class='col-sm-4 mt-4'>
+                <div class="card bg-white ">
+                    
+                    <div class="container-fluid" align="left">
+                         <!--{% if a.image %}
+                    <br/>
+                        <img  src='{{ a.image.url }}' class="center" style=" width:100%;" class='img-responsive' />
+                    <br/>
+                    {% endif %}-->
+                          <h2><a class="text-success"style=" text-decoration: none;" href="{{ a.get_absolute_url }}" >{{ a.title }}</a><h6 class="text-muted"> {{ a.timestamp }}</h6></h2>
+                          <p class="text-muted">By: {{ a.user }}</p>
+                          <p><strong>{{ a.content | linebreaks |truncatechars:20}}</strong></p>
+                          <p ><a href="{{ a.get_absolute_url }}" class="btn btn-danger" role="button">View</a></p>
+                    </div>
+
+                 </div>
+         </div><br/><br/>
+         
+         {% endfor %}
+</div>
+
+<div class="container-fluid">
+  <div class="pagination">
+    <span class="step-links">
+        {% if queryset.has_previous %}
+            <a href="?{{ page_request_var }}={{ queryset.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}
+        </span>
+
+        {% if queryset.has_next %}
+            <a href="?{{ page_request_var }}={{ queryset.next_page_number }}">Next</a>
+        {% endif %}
+    </span>
+  </div>
+</div>
+
+
+
+
+</div>
+
+
+
+{%  endblock %}
+
+
+
+
+{% for sub_article in articles %}
+    {% if forloop.first %}<div class="row">{% endif %}
+        <div class="col-xs-4">
+            <a href="#">
+                {{ sub_article.name }}
+            </a>
+        </div>
+    {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+    {% if forloop.last %}</div>{% endif %}
+{% endfor %}

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+		<title>NITK Student Council</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">	
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Iceland">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Signika:600">
+		<link rel="stylesheet" type="text/css" href="{% static 'website/css/home.css' %}">
+		
+
+		{% block extracss %}
+		{% endblock %}
+		<style type="text/css">
+			.newsholder
+			{
+  				overflow:hidden;
+				position: relative;
+				margin : 0px;
+				padding: 0px;
+				left: 10px;
+				width: 300px;
+			}
+
+			.newsholder ul
+			{
+  				list-style:none;
+  				padding : 0px;
+			}
+			.newsholder ul li
+			{
+				padding:10px 0px;
+			}
+			.newsholder ul li a
+			{
+				text-decoration :none;
+				width: 300px;
+			}
+
+			.fa {
+    			padding: 20px;
+    			width: 35px;
+    			height: 35px;
+    			text-align: center;
+    			text-decoration: none;
+    			border-radius: 50%;
+			}
+			.fa-facebook {  				
+  				color: white;
+  				font-size: 30px;
+			}
+			.fa-instagram {
+  				color: white;
+  				font-size: 30px;
+			}
+			.nkfooter
+            {
+              position:fixed;
+              left:0px;
+              bottom:0px;
+              height:155px;
+              width:100%;
+            }
+
+		</style>
+	</head>
+
+	<body >
+		<div class="sticky-top">
+			<nav class="navbar navbar-expand-xl bg-dark navbar-dark">
+				<div class="container-fluid">
+  					<a class="navbar-brand" href="{% url 'home' %}">
+  					<img src="{% static 'website/images/nitk-t-logo.png'%}" alt="NITK_logo" style="height:45px">
+  					</a>
+  				
+  					<span class="col-sm-6 navbar-text text-white">National Institue of Technology, Karnataka</span>
+  					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsenavbar"><span class="navbar-toggler-icon"></span></button>
+
+  					<div class="collapse navbar-collapse" id="collapsenavbar">
+  						<ul class="navbar-nav ">
+    					<li class="nav-item dropdown">
+      						<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">Student Council
+      						</button>
+	      					<div class="dropdown-menu">
+	        					<a class="dropdown-item text-info" href="{% url 'message' %}">Message from the Council</a>
+	        					<div class="dropdown-divider"></div>
+	        					<a class="dropdown-item text-info" href="{% url 'represent' %}">Meet the Representatives</a>
+	        					<div class="dropdown-divider"></div>
+	        					<a class="dropdown-item text-info" href="{%url 'MoM' %}">Minutes of Meetings</a>
+	        					<div class="dropdown-divider"></div>
+					        	<a class="dropdown-item text-info" href="{%url 'sugg' %}">Suggestions</a>
+					        	<div class="dropdown-divider"></div>
+					        	<a class="dropdown-item text-info" href="{% url 'announcements' %}">Announcements</a>
+	      					</div>
+    					</li>
+
+		    			<li class="nav-item dropdown">
+			      			<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">Academics
+			      			</button>
+				      		<div class="dropdown-menu">
+					        	<a class="dropdown-item text-info" href="{% url 'senate_reports' %}">Senate Reports</a>
+					        	<div class="dropdown-divider"></div>
+					        	<a class="dropdown-item text-info" href="{% url 'MoUs' %}">MoUs</a>
+				      		</div>
+		    			</li>
+
+			    		<li class="nav-item dropdown">
+			      			<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">Calendar</button>
+				      		<div class="dropdown-menu">
+				        		<a class="dropdown-item text-info" href="{% url 'Calender1' %}">Academic Calendar</a>
+				        		<!--<div class="dropdown-divider"></div>
+				        		<a class="dropdown-item text-info" href="#">Calendar</a>-->
+				      		</div>
+			    		</li>
+
+			    		<li class="nav-item dropdown">
+			      			<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">Student's Life
+			      			</button>
+				      		<div class="dropdown-menu">
+					        	<a class="dropdown-item text-info" href="{% url 'nitk_life' %}">NITK Life</a>
+					        	<div class="dropdown-divider"></div>
+					        	<a class="dropdown-item text-info" href="{% url 'List' %}">Literary Archive</a>
+					        	<div class="dropdown-divider"></div>
+					        	<a class="dropdown-item text-info" href="{%url 'faq' %}">FAQs</a>
+					      	</div>
+			    		</li>
+
+			    		
+			      		{% block login %}
+			      		{% endblock %}
+			    		
+    					</ul>
+  					</div>
+				</div>
+			</nav>		
+			<div >
+				<ul class="breadcrumb rounded-0" >
+					{% block breadcrumb_items %}
+					{% endblock %}
+				</ul>
+			</div>
+		</div>
+		{% block content %}
+		{% endblock %}
+
+		{% block footer %}
+	    <div class="nkfooter">
+		<div class=" ">
+			<div class="container-fluid col-lg-12 " style="margin-top: 40px; ">
+				<nav class="navbar navbar-expand-xl bg-dark navbar-dark rounded sticky-top" style="display: block;">
+
+					<div class="col-lg-12">
+						<p class="col-lg-12 text-white center " style="text-align: center;" >NITK Student Council </p>
+					</div>
+					<hr  style="width: 1350px; background-color: white;"/>
+					<div class="row" style="margin-bottom: -10px;">
+						<div class="col-lg-4" style="text-align:center; color:white;">
+							<a>About Us</a>
+							<p style="font-size: 10px;font-style: italic;color: gray;">To know more about the Student Council</p>
+						</div>
+						<div class="col-lg-4" style="text-align:center;">
+							<a class="face-icon" ><i class="fab fa-facebook"></i></a>
+
+							<a class="face-icon" style="margin-left: 30px;"><i class="fab fa-instagram"></i></a>
+						</div>
+						<div class="col-lg-4" style="text-align:center;color:white;">
+							<a>Contact Us</a>
+							<p style="font-size: 10px;font-style: italic;color: gray;">email-student_council@gmail.com</p>
+						</div>
+					</div>
+
+					<div style="text-align:center; color:gray;  background-color: #00000024;">
+						Developed By: NITK-MCA
+					</div>
+
+
+				</nav>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+		<div class="fixed-bottom">			
+			{% block info %}
+			
+			{% endblock %}
+			<!--<footer class="text-center" style="height: 20px;background-color: black;top:0px" >
+				<p class="text-light small m-0 p-0" >Developed by NITK-MCA</p>
+	  		</footer>-->
+
+		</div>
+		<div id="loginmodal" class="modal fade">
+			<div class="modal-dialog modal-dialog-centered mx-auto modal-login">
+				<div class="modal-content border-0 rounded">
+					<div class="modal-header border-bottom-0">				
+						<h4 class="modal-title mx-auto text-secondary">Student Council</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<form action="{% url 'home' %}" method="post">
+							{% csrf_token %}
+							<div class="form-group">
+								<i class="fa fa-user"></i>
+								<input type="text" name="username" class="form-control" placeholder="Username" required="required">
+							</div>
+							<div class="form-group">
+								<i class="fa fa-lock"></i>
+								<input type="password" name="password" class="form-control" placeholder="Password" required="required">					
+							</div>
+							{% if login == 'failed' %}
+								<p class="text-danger">Credentials are not correct!!!</p>
+							{% endif %}
+							<div class="form-group">
+								<input type="submit" class="btn btn-success btn-block btn-lg" value="Login">
+							</div>
+						</form>				
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="pwdmodal" class="modal fade">
+			<div class="modal-dialog modal-dialog-centered mx-auto modal-login">
+				<div class="modal-content border-0 rounded">
+					<div class="modal-header border-bottom-0">				
+						<h4 class="modal-title mx-auto text-secondary">Change Password</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<form action="{% url 'pwdchange' %}" method="post" name="pwdchangeform" onsubmit="return validate()">
+							{% csrf_token %}
+							<div class="form-group">
+								<i class="fa fa-key"></i>
+								<input id="pwd1" type="password" name="password1" class="form-control" placeholder="Enter new password" required="required"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+							</div>
+							<div class="form-group">
+								<i class="fa fa-key"></i>
+								<input id="pwd2" type="password" name="password2" class="form-control" placeholder="Confirm new password" required="required"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">					
+							</div>
+							<div id="errors">
+  								<p id="letter" class="m-0">A <b>lowercase</b> letter</p>
+  								<p id="capital" class="m-0">A <b>uppercase</b> letter</p>
+  								<p id="number" class="m-0">A <b>number</b></p>
+  								<p id="length" class="m-0">Minimum <b>8 characters</b></p>
+							</div>
+							{% if change == 'failed' %}
+								<p class="text-danger">Passwords do not match!!!</p>
+							{% endif %}
+							<div class="form-group">
+								<input type="submit" class="btn btn-success btn-block btn-lg" value="Change Password">
+							</div>
+						</form>				
+						
+					</div>
+				</div>
+			</div>
+		</div>     
+	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$(window).scroll(function() {
+			if ($(this).scrollTop() < 10) {
+
+			$(".nkfooter").slideUp();
+
+			} else {
+
+			$(".nkfooter").slideDown();
+
+			}
+			});
+	</script>
+		{% block extrajs %}
+			<script type="text/javascript">
+					
+					var letter = document.getElementById("letter");
+					var capital = document.getElementById("capital");
+					var number = document.getElementById("number");
+					var len = document.getElementById("length");
+					var pwd1 = document.getElementById("pwd1");
+					var pwd2 = document.getElementById("pwd2");
+
+					pwd1.onfocus = function() {
+						document.getElementById("errors").style.display = "block";
+					}
+
+					pwd1.onblur = function() {
+						document.getElementById("errors").style.display = "none";	
+					}
+
+					pwd1.onkeyup = function() {
+						var lowerCaseLetters = /[a-z]/g;
+						if(pwd1.value.match(lowerCaseLetters))
+						{
+						    letter.style.color = "green";
+						} 
+						else
+						{
+						    letter.style.color = "red";
+						}
+
+						var upperCaseLetters = /[A-Z]/g;
+						if(pwd1.value.match(upperCaseLetters))
+						{
+						    capital.style.color = "green";
+						} 
+						else
+						{
+						    capital.style.color = "red";
+						}
+
+						var numbers = /[0-9]/g;
+						if(pwd1.value.match(numbers))
+						{
+						    number.style.color = "green";
+						} 
+						else
+						{
+						    number.style.color = "red";
+						}
+
+						if(pwd1.value.length >= 8)
+						{
+							len.style.color = "green";
+						}
+						else
+						{
+							len.style.color = "red";
+						}						
+					}
+
+
+			</script>
+			{% if login == 'failed' %}
+			<script type="text/javascript">
+			$('#loginmodal').modal('show');
+			</script>
+			{% endif %}
+			{% if change == 'failed' %}
+			<script type="text/javascript">
+			$('#pwdmodal').modal('show');
+			</script>
+			{% endif %}
+		{% endblock %}
+	</body>
+</html>

@@ -1,0 +1,355 @@
+{% extends "website/base.html" %}
+{% load static %}
+{% block extracss %}
+    <style type="text/css">
+    body
+    {
+      background-image: url({% static 'website/images/beach.jpg'%});
+      background-size: cover;
+    }
+
+    
+
+    .pr-detail:hover .detail{
+                text-align:center;
+                display:inline-block !important;
+
+            }
+
+            .pr-detail:hover p{
+                width: 190px;
+                word-wrap: break-word !important;
+            }
+            .pr-detail:hover .only-img{
+                width:190px;
+                #background-color:#a5c6ff;
+                #background-color: #19191942;
+                background-color: #acb7cd;
+                #box-shadow: 0 10px 15px #ddd;
+                box-shadow: 0 10px 10px #e5e5e5;
+                #position:absolute;
+                font-weight: bold;
+                z-index:1;
+            }
+            .pr-detail:hover .a1{
+                    display: none;
+            }
+            .detail {
+                display:none;
+            }
+
+            .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active  {
+                color: #495057 !important;
+
+            }
+            .nav-item {
+            color:black;
+            }
+    </style>
+{% endblock %}
+
+{% block login%}
+  {% if user.is_authenticated %}
+  <li class="nav-item dropdown pl-4">
+    <a data-toggle="dropdown">
+      <img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+            {% endif %}" alt='User'>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item text-info" href="{% url 'profile' %}">View Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+    </div>
+  </li>
+  {% else %}
+    <li class="nav-item pl-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Login</button>
+    </li>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+	<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'senate_reports' %}" class="text-dark font-weight-bold"  style="text-decoration:none">Represent</a></li>
+	<li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block content %}
+{%load static%}
+		<div class="container rounded" style="margin-top: 20px;padding-top: 15px;background-color: white;">
+            <p class="text-danger" style="font-size: 50px;text-align: center">Representatives 2018</p>
+            <nav>
+                <div class="nav nav-tabs " id="nav-tab" role="tablist">
+                    <a class="col-lg-1"></a>
+                    <a class="nav-item nav-link active col-lg-2" id="nav-core_member-tab" data-toggle="tab" href="#nav-core_member" role="tab" aria-controls="nav-core_member" aria-selected="true" >Core Members</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-team_engineer-tab" data-toggle="tab" href="#nav-team_engineer" role="tab" aria-controls="nav-team_engineer" aria-selected="false">Team Engineer</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-team_incident-tab" data-toggle="tab" href="#nav-team_incident" role="tab" aria-controls="nav-team_incident" aria-selected="false">Team Incident</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-secretaries-tab" data-toggle="tab" href="#nav-secretaries" role="tab" aria-controls="nav-secretaries" aria-selected="false">Secretaries</a>
+                    <a class="nav-item nav-link col-lg-2" id="nav-class_representatives-tab" data-toggle="tab" href="#nav-class_representatives" role="tab" aria-controls="nav-class_representatives" aria-selected="false">Class Representatives</a>
+                </div>
+            </nav>
+       
+            <div class="tab-content" id="nav-tabContent" style="margin-top:50px;padding-bottom:125px;">
+                    
+                <div class="tab-pane fade show active" id="nav-core_member" role="tabpanel" aria-labelledby="nav-core_member-tab" >
+                     
+                    {% for rcore in coremem %}
+                        {% if forloop.first %}
+                    <div class="row col-lg-12" style="display:inline-flex;margin-left: 0px;padding-bottom: 0px;">
+                        {% endif %}
+                          
+                            <div class="col-lg-4 pr-detail"style="text-align:center;">
+                              
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; ">
+                                
+                               <img class="rounded-circle fixed" src="{{rcore.repimage.url}}" style="width: 160px; height :160px; "/>
+                            
+                            
+                            
+                            <div class="a1" style="height: 90px;" >
+                                <p class="text-primary" style="margin-top: 10px;font-size: 14px;">{{rcore.reppost}}</p>
+                            </div>
+                            <div class="detail" >
+                                    <p class="text-success" style="margin-top: 10px; font-size:16px;">{{rcore.repname}}</p>
+                                    <p class="text-success" style="margin-top: 10px;font-size:16px;">{{rcore.repemail}}</p>
+                            </div>
+                        
+                            </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:3 %}</div><div class="row col-lg-12" style="display:inline-flex;margin-left: 0px;padding-bottom: 45px;">
+                        {% endif %}
+                    {% if forloop.last %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}      
+                    </div>
+                    
+ 
+                <div class="tab-pane fade" id="nav-team_engineer" role="tabpanel" aria-labelledby="nav-team_engineer-tab">
+                    {% for rteame in teamengi %}
+                        {% if forloop.first %}
+                    <div class="row col-lg-12" style="display:inline-flex;margin-left: 0px;padding-bottom: 0px;">
+                        {% endif %}
+                          
+                            <div class="col-lg-4 pr-detail"style="text-align:center;">
+                              
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px;">
+                                
+                               <img class="rounded-circle fixed" src="{{rteame.repimage.url}}" style="width: 160px; height :160px;"/>
+                            
+                            
+                            
+                            <div class="a1" style="height: 90px;" >
+                                <p class="" style="margin-top: 10px;">{{rteame.reppost}}</p>
+                            </div>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">{{rteame.repname}}</p>
+                                    <p class="" style="margin-top: 10px;">{{rteame.repemail}}</p>
+                            </div>
+                        
+                            </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:3 %}</div><div class="row col-lg-12" style="display:inline-flex;margin-left: 0px;padding-bottom: 45px;">
+                        
+                    {% endif %}
+                    {% if forloop.last %}
+                    </div>
+                    {% endif %}
+                     {% endfor %}   
+                    </div>
+
+                    
+                <div class="tab-pane fade" id="nav-team_incident" role="tabpanel" aria-labelledby="nav-team_incident-tab">
+                    <div class="row col-lg-12" style="display:inline-flex;margin-left: 0px;padding-bottom: 0px;">
+                        {% for rteami in teaminci %}                        
+                          
+                            <div class="col-lg-4 pr-detail"style="text-align:center;">
+                              
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 80px;
+    margin-right: 80px; ">
+                                
+                               <img class="rounded-circle fixed" src="{{rteami.repimage.url}}" style="width: 160px; height :160px;"/>
+                            
+                            
+                            <p class="" style="margin-top: 10px;">{{rteami.reppost}}</p>
+                            <div class="a1" style="height: 90px;" >
+                            </div>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">{{rteami.repname}}</p>
+                                    <p class="" style="margin-top: 10px;">{{rteami.repemail}}</p>
+                            </div>
+                        
+                            </div>
+                        </div>
+                        
+                        {% endfor %}
+                        </div>
+                    </div>
+                
+                <div class="tab-pane fade" id="nav-secretaries" role="tabpanel" aria-labelledby="nav-secretaries-tab">
+                    <div style="margin-bottom:10px;">
+                        <span class="col-sm-12 navbar-text text-black" style="text-align: center;margin-top: -16px;font-size:25px;font-family: -webkit-pictograph;font-style: initial;">Technical Secretaries </span>
+                    </div>
+                    <div class="row col-lg-12" style="display:inline-flex;">
+
+                        <div class="col-lg-2"></div>
+                        {% for rtec in tsecre %}
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                              
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; ">
+                                
+                               <img class="rounded-circle fixed" src="{{rtec.repimage.url}}" style="width: 160px; height :160px;"/>
+                            
+                            
+                            <p class="" style="margin-top: 10px;">{{rtec.reppost}}</p>
+                            <div class="a1" style="height: 90px;" >
+                            </div>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">{{rtec.repname}}</p>
+                                    <p class="" style="margin-top: 10px;">{{rtec.repemail}}</p>
+                            </div>
+                        
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        
+                        <div class="col-lg-2"></div>
+
+                    </div>
+                    <div>
+                        <span class="col-sm-12 navbar-text text-black" style="text-align: center;font-size:25px;font-family: -webkit-pictograph;font-style: initial;margin-top: 16px;
+    margin-bottom: 10px;">Cultural and Alumni Secretaries </span>
+                    </div>
+                    <div class="row col-lg-12" style="display:inline-flex;">
+
+                        <div class="col-lg-2"></div>
+                        {% for rca in culmni %}
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                              
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; ">
+                                
+                               <img class="rounded-circle fixed" src="{{rca.repimage.url}}" style="width: 160px; height :160px;"/>
+                            
+                            
+                            <p class="" style="margin-top: 10px;">{{rca.reppost}}</p>
+                            <div class="a1" style="height: 90px;" >
+                            </div>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">{{rca.repname}}</p>
+                                    <p class="" style="margin-top: 10px;">{{rca.repemail}}</p>
+                            </div>
+                        
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="col-lg-2"></div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-class_representatives" role="tabpanel" aria-labelledby="nav-class_representatives-tab">
+
+                   <div style="margin-bottom:10px;">
+                        <span class="col-sm-12 navbar-text text-black" style="text-align:center;margin-top: -16px;font-size:25px;font-family: -webkit-pictograph;font-style: initial;">Second year representatives</span>
+                    </div>
+                    <div class="row col-lg-12" style="display:inline-flex;">
+
+                        
+                        {% for rsr in secondr %}
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                              
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; ">
+                                
+                               <img class="rounded-circle fixed" src="{{rsr.repimage.url}}" style="width: 160px; height :160px;"/>
+                            
+                            
+                            <p class="" style="margin-top: 10px;">{{rsr.reppost}}</p>
+                            <div class="a1" style="height: 90px;" >
+                            </div>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">{{rsr.repname}}</p>
+                                    <p class="" style="margin-top: 10px;">{{rsr.repemail}}</p>
+                            </div>
+                        
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        
+                        <div class="col-lg-2"></div>
+
+                    </div>
+                    <div>
+                        <span class="col-sm-12 navbar-text text-black" style="text-align: center;font-size:25px;font-family: -webkit-pictograph;font-style: initial;margin-top: 16px;
+    margin-bottom: 10px;">Third year representatives </span>
+                    </div>
+                    <div class="row col-lg-12" style="display:inline-flex;">
+
+                        
+                        {% for rta in thirdr %}
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                              
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; ">
+                                
+                               <img class="rounded-circle fixed" src="{{rta.repimage.url}}" style="width: 160px; height :160px;"/>
+                            
+                            
+                            <p class="" style="margin-top: 10px;">{{rta.reppost}}</p>
+                            <div class="a1" style="height: 90px;" >
+                            </div>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">{{rta.repname}}</p>
+                                    <p class="" style="margin-top: 10px;">{{rta.repemail}}</p>
+                            </div>
+                        
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="col-lg-2"></div>
+
+                    </div>
+
+                    <div>
+                        <span class="col-sm-12 navbar-text text-black" style="text-align: center;font-size:25px;font-family: -webkit-pictograph;font-style: initial;margin-top: 16px;
+    margin-bottom: 10px;">Fourth year representatives </span>
+                    </div>
+                    <div class="row col-lg-12" style="display:inline-flex;">
+
+                        
+                        {% for rf in fourthr %}
+                        <div class="col-lg-4 pr-detail"style="text-align:center;">
+                              
+                            <div class="only-img rounded" style="padding-top:10px;margin-left: 70px;
+    margin-right: 70px; ">
+                                
+                               <img class="rounded-circle fixed" src="{{rf.repimage.url}}" style="width: 160px; height :160px;"/>
+                            
+                            
+                            <p class="" style="margin-top: 10px;">{{rf.reppost}}</p>
+                            <div class="a1" style="height: 90px;" >
+                            </div>
+                            <div class="detail" >
+                                    <p class="" style="margin-top: 10px;">{{rf.repname}}</p>
+                                    <p class="" style="margin-top: 10px;">{{rf.repemail}}</p>
+                            </div>
+                        
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="col-lg-2"></div>
+
+                    </div> 
+                </div>
+                
+            </div>
+
+        </div>
+{% endblock %}

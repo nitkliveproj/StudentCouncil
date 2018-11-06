@@ -1,0 +1,108 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/css/home.css' %}">
+<style type="text/css">
+body
+{
+	background-color: lightgrey;
+}
+</style>
+{% endblock %}	
+
+{% block breadcrumb_items %}
+	<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'profile' %}" class="text-dark font-weight-bold"  style="text-decoration:none">Profile</a></li>
+	<li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block login%}
+	<li class="nav-item dropdown pl-4">
+		<a data-toggle="dropdown">
+			<img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+						{% endif %}" alt='User'>
+		</a>
+		<div class="dropdown-menu dropdown-menu-right">
+			<a class="dropdown-item text-info" href="{% url 'profile'%}">View Profile</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+		</div>			
+	</li>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6 ">
+				<form action="{% url 'edit' %}" method="POST">
+				{% csrf_token %}
+				<div class="card" style="height: 432px">
+					<div class="card-header bg-dark d-flex">
+						<div class="d-block">
+
+						<label for="imageupload"><img class="card-img-top rounded-circle img-fluid" src="{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+						{% endif %}" style="width:140px; height: 140px" alt="User"></label>
+						<input type="file" name="pic" accept="image/*" id="imageupload" class="d-none" />
+						</div>
+						<div class="mx-auto text-white">
+							<div class="form-group">
+							<input type="text" id="name" class="form-control" value="{{ user.get_full_name }}" name="name" required=""> 
+							<input type="text" id="rollno" class="form-control" value="{{ user.profile.rollno }}" name="rollno" required="" maxlength="8">
+							<select class="form-control" name="branch">
+								<option selected="selected" disabled>{{ user.profile.get_branch_display }}</option>
+								<option value="CH">Chemical</option>
+								<option value="CO">Computer Science</option>
+								<option value="CV">Civil </option>
+								<option value="EC">Electronics & Communications</option>
+								<option value="EE">Electrical & Electronics</option>
+								<option value="IT">Information Technology</option>
+								<option value="ME">Mechanical </option>
+								<option value="MN">Mining </option>
+								<option value="MT">Metallurgy Engineering</option>
+							</select>
+							<h5 class="card-title pt-1">{{ user.profile.get_post_display }}</h5>
+							</div>
+						</div>
+
+					</div>
+					<div class="card-body" style="height: 50%">
+						<div class="d-flex"> 
+							<div class="d-block text-muted w-50 border-right border-dark">
+								<div class="form-group">
+								<i class="fa fa-user text-dark ml-2 pt-2 mt-1 position-absolute"></i>
+								<input type="text" class="form-control pl-4" value="{{ user.username }}" name="username" required>
+								<i class="fa fa-calendar text-dark ml-2 pt-2 mt-1 position-absolute"></i>
+								<input type="date" name="birth_date" class="form-control pl-4" value='{{ user.profile.birth_date | date:"Y-m-d"}}' required>
+								<i class="fa fa-home text-dark mt-1 pt-2 ml-2 position-absolute"></i>
+								<input type="text" class="form-control pl-4" value="{{ user.profile.hostel_block }}" name="hostel_block" required>
+								<i class="fa fa-phone text-dark mt-1 pt-2 ml-2 position-absolute"></i>
+								<input type="text" id="phone" class="form-control pl-4" value="{{ user.profile.phone_num }}" name="phone_num" pattern="[0-9]{10}" >
+								<i class="fa fa-at text-dark mt-1 pt-2 ml-2 position-absolute"></i>
+								<input type="email" id="email" class="form-control pl-4" value="{{ user.email }}" name="email" pattern="\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" required>
+								</div>						
+							</div>
+
+								<div class="form-group d-block w-50 ml-2 text-muted">
+									<p class="card-title text-dark font-weight-bold m-0">About me :</p>
+									<textarea name="bio" class="form-control " rows="4">{% if user.profile.bio %}{{ user.profile.bio }} {% else %}Write about you here...{% endif %}</textarea>
+
+								</div>
+						</div>
+					</div>
+					<div class="card-footer bg-dark d-flex justify-content-center">
+						<button type="submit" class="btn btn-success">Save Changes</button>
+ 					</div>
+				</div>
+			</div>
+		</form>
+			<div class="col-3"></div>
+		</div>
+	</div>
+	<br/>
+{% endblock %}
+{% block extrajs %}
+{% endblock %}

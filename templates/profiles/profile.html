@@ -1,0 +1,101 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% static 'website/css/home.css' %}">
+<style type="text/css">
+body
+{
+	background-color: lightgrey;
+}
+</style>
+{% endblock %}	
+
+{% block breadcrumb_items %}
+	<li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark font-weight-bold"  style="text-decoration:none">&nbsp;&nbsp;&nbsp;Home</a></li>
+	<li class="breadcrumb-item"><a href="{% url 'profile' %}" class="text-dark font-weight-bold"  style="text-decoration:none">Profile</a></li>
+	<li class="breadcrumb-item"><a href="#"></a></li>
+{% endblock %}
+
+{% block login%}
+	<li class="nav-item dropdown pl-4">
+		<a data-toggle="dropdown">
+			<img class="rounded-circle img-fluid" style="width:40px; height: 40px;" src="{{user.profile.profile_pic.url}}" alt='User'>
+		</a>
+		<div class="dropdown-menu dropdown-menu-right">
+			<a class="dropdown-item text-info" href="{% url 'profile'%}">View Profile</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item text-info" data-toggle="modal" data-target="#pwdmodal" >Change Password</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item text-info" href="{% url 'logout' %}">Logout</a>
+		</div>			
+	</li>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6 ">
+				<div class="card" style="height: 432px">
+					<div class="card-header bg-dark d-flex">
+						<img class="card-img-top rounded-circle img-fluid" src="
+						{% if user.profile.profile_pic %}{{user.profile.profile_pic.url}}{% else %}{% static 'website/images/presi.jpg' %}
+						{% endif %}" style="width:140px; height: 140px" alt="User">
+						<div class="mx-auto mt-3 text-white">
+							<h4 class="card-title m-1">{{ user.get_full_name }}</h4>
+							<h5 class="card-title m-1">{{ user.profile.rollno }}</h5>
+							<h5 class="card-title m-1">{{ user.profile.get_branch_display }}</h5>
+							<h5 class="card-title m-1">{{ user.profile.get_post_display }}</h5>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="d-flex">
+							<div class="d-block text-muted w-50 border-right border-dark">
+							<p class="card-title"><i class="fa fa-user text-dark" style="width: 20px"></i>&nbsp;{{ user.username }}</p>
+							<p class="card-title"><i class="fa fa-calendar text-dark" style="width: 20px"></i>&nbsp;{{ user.profile.birth_date }}</p>
+							<p class="card-title"><i class="fa fa-home text-dark" style="width: 20px"></i>&nbsp;{{ user.profile.hostel_block }}</p>
+							<p class="card-title"><i class="fa fa-phone text-dark" style="width: 20px"></i>&nbsp;{{ user.profile.phone_num }}</p>
+							<p class="card-title"><i class="fa fa-at text-dark" style="width: 20px"></i>&nbsp;{{ user.email }}</p>	
+							</div>
+
+							<div class="d-block w-50 text-muted">
+								<p class="card-title ml-2 text-dark font-weight-bold">About me :</p>
+								<p class="card-title ml-2">{{ user.profile.bio }}</p>
+
+							</div>
+						</div>
+					</div>
+					<div class="card-footer bg-dark d-flex justify-content-center">
+						<a href="{% url 'edit' %}" ><button type="button" class="btn btn-success">Edit Profile</button></a>
+ 					</div>
+				</div>
+			</div>
+			<div class="col-3"></div>
+		</div>
+		<div class="row">
+		</div>
+	</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
