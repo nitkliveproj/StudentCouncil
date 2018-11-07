@@ -17,18 +17,34 @@ Issue this command   workon myproject    to activate your virtual environment.
 
 Now install all the required softwares listed below by issuing the same command pip install required software
 
+
+
+
 Django                2.0.6
+
 django-ckeditor       5.6.1
+
 django-js-asset       1.1.0
+
 Pillow                5.2.0
+
 pip                   10.0.1
+
 pytz                  2018.5
+
 setuptools            39.2.0
+
 virtualenv            16.0.0
+
 virtualenvwrapper-win 1.2.5
+
 wheel                 0.31.1
 
-please see that you install correct version of the software only otherwise the wesbite wont work.
+Please see that you install correct version of the software only otherwise the wesbite wont work.
+
+
+
+
 
 After all required softwares are installed, unzip the archive containing student council website. After unzipping go to StudentCouncil folder and issue command python manage.py runserver
 
